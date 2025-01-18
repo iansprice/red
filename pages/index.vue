@@ -1,0 +1,222 @@
+<template>
+  <div id="zoom-wrapper" class="transition-transform duration-700 ease-out" @mousemove="handleMouseMove">
+    <svg width="100vw" height="100vh" zoomAndPan="magnify">
+      <defs>
+        <DisplacementCircles id="dis1"/>
+
+        <!-- Grid pattern -->
+        <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+          <path d="M 48 0 L 0 0 0 48" fill="none" stroke="white" stroke-width="3.5">
+            <animate
+                attributeName="stroke-width"
+                values="0;3.5"
+                dur="1.5s"
+                repeatCount="0"
+            />
+            <animate
+                attributeName="stroke-opacity"
+                values="0;1"
+                dur="1s"
+                repeatCount="0"
+            />
+          </path>
+        </pattern>
+
+        <!-- Radial gradient for splash effect -->
+        <radialGradient id="splashGradient"  r="0.1" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="white" stop-opacity="1"/>
+          <stop offset="50%" stop-color="white" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="white" stop-opacity="0"/>
+        </radialGradient>
+
+        <!-- Cursor ripple filter -->
+        <filter id="cursorRipple" x="-50%" y="-50%" width="200%" height="200%">
+          <!-- Create intense local distortion -->
+          <feTurbulence
+              type="fractalNoise"
+              :baseFrequency="turbulenceFreq"
+              numOctaves="3"
+              seed="5"
+              result="noise">
+            <animate
+                attributeName="baseFrequency"
+                :values="`${turbulenceFreq},${turbulenceFreq};${turbulenceFreq*2},${turbulenceFreq*2};${turbulenceFreq},${turbulenceFreq}`"
+                dur="0.5s"
+                repeatCount="indefinite"/>
+          </feTurbulence>
+
+          <!-- Create splash mask -->
+          <feImage
+              width="300"
+              height="300"
+              href="#splashGradient"
+              result="splash"/>
+
+          <!-- Combine noise with splash -->
+          <feDisplacementMap
+              in="SourceGraphic"
+              in2="noise"
+              scale="180"
+              xChannelSelector="R"
+              yChannelSelector="G"
+              result="displacement"/>
+
+          <!-- Apply splash mask -->
+          <feComposite
+              in="displacement"
+              in2="splash"
+              operator="in"
+              result="maskedDisplacement"/>
+
+          <!-- Blend with original -->
+          <feComposite
+              in="SourceGraphic"
+              in2="maskedDisplacement"
+              operator="arithmetic"
+              k1="1"
+              k2="0.5"
+              k3="0"
+              k4="0"/>
+        </filter>
+
+        <filter id="turbulentBlur" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence
+              type="turbulence"
+              baseFrequency="0.1"
+              numOctaves="1"
+              result="turbulence">
+            <animate
+                attributeName="baseFrequency"
+                values="0.005;0.01;0.001;0.005"
+                dur="10s"
+                repeatCount="indefinite"/>
+          </feTurbulence>
+
+          <feDisplacementMap
+              in="SourceGraphic"
+              in2="turbulence"
+              scale="6"
+              result="displaced"/>
+
+          <feGaussianBlur
+              in="displaced"
+              stdDeviation="1.0"
+              result="blurred"/>
+
+          <feComposite
+              in="blurred"
+              in2="SourceGraphic"
+              operator="arithmetic"
+              k1="0.3"
+              k2="0.5"
+              k3="0"
+              k4="0"/>
+        </filter>
+      </defs>
+
+      <!-- Main content -->
+      <g transform="matrix(1,0,0.1,0.95,0.9,0.95)">
+        <!-- Background with base effects -->
+        <g filter="url(#turbulentBlur)">
+          <!-- Shadow filter -->
+
+          <g class="pool-only">
+            <rect width="10000%" height="10000%" fill="#5289e3" transform="translate(-500, -10)" :opacity="0.8"/>
+            <rect width="10000%" height="10000%" fill="url(#grid)" transform="translate(-500, -10)" class="zoom-rect"/>
+          </g>
+          <!-- Text with ripple effect -->
+          <g :filter="stage === 'planet' ? 'url(#cursorRipple)' : undefined"
+             class="transform-gpu"
+          >
+            <text x="0vw" y="50vh"
+                  class="opacity-0 mix-blend-hard-light animate-[fade-in_0.25s_ease-in_forwards_2s]"
+                  text-anchor="start"
+                  filter="url(#dis1)"
+                  dominant-baseline="middle"
+                  font-family="Arial Black, Arial, sans-serif"
+                  font-weight="900"
+                  font-size="20vw"
+                  fill="#db4740">
+              RED
+            </text>
+            <text x="0.5vw" y="72vh"
+                  class="opacity-0 mix-blend-hard-light animate-[fade-in_0.25s_ease-in_forwards_3s]"
+                  text-anchor="start"
+                  dominant-baseline="middle"
+                  filter="url(#dis1)"
+                  font-family="Arial Black, Arial, sans-serif"
+                  font-weight="900"
+                  font-size="12vw"
+                  fill="#db4740">
+              MOUNTAIN
+            </text>
+            <text x="1vw" y="89vh"
+                  class="opacity-0 mix-blend-hard-light animate-[fade-in_0.25s_ease-in_forwards_4s]"
+                  text-anchor="start"
+                  dominant-baseline="middle"
+                  filter="url(#dis1)"
+                  font-family="Arial Black, Arial, sans-serif"
+                  font-weight="900"
+                  font-size="11vw"
+                  fill="#db4740">
+              SOFTWARE
+            </text>
+          </g>
+        </g>
+      </g>
+    </svg>
+    {{stage}}
+    <Planet class="fixed -top-16 right-8 fit w-120 pb-0 border-2 border-teal-800 bg-black" v-if="stage==='planet'"/>
+  </div>
+</template>
+
+<script setup lang="ts">
+import {Ref, ref} from 'vue';
+import DisplacementCircles from "../components/filters/DisplacementCircles.vue";
+
+definePageMeta({
+  layout: "full"
+})
+
+const turbulenceFreq = 0.1
+type Stage = 'pool' | 'planet'
+const stage: Ref<Stage> = ref('pool')
+
+setTimeout(() => {
+  stage.value = 'planet';
+}, 4000)
+
+watch(
+    stage,
+    (s, oS) => {
+      if (oS) {
+        document.querySelector<SVGSVGElement>(`.${oS}-only`).remove()
+      }
+    },
+    {immediate: true}
+)
+</script>
+
+<style>
+@keyframes fade-in {
+  from {
+    opacity: .1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomEffect {
+  from {
+    transform: translate(-500px, -10px) scale(0.002);
+  }
+  to {
+    transform: translate(-500px, -10px) scale(1);
+  }
+}
+
+.zoom-rect {
+  animation: zoomEffect 2s ease-in ;
+}
+</style>

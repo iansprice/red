@@ -1,0 +1,6 @@
+/* Global CSS file */
+.theme-transitioning * {
+    transition: background-color 2500ms ease-in-out,
+                border-color 2500ms ease-in-out,
+                color 2500ms ease-in-out !important;
+}

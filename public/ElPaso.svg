@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+    <!-- Sky gradient -->
+    <defs>
+        <!-- Dawn/Light mode gradient: Bright purple to warm orange -->
+        <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="hsl(280, 40%, 75%)" />
+            <stop offset="40%" stop-color="hsl(35, 90%, 75%)" />
+            <stop offset="70%" stop-color="hsl(25, 95%, 70%)" />
+        </linearGradient>
+        <!-- Dusk/Dark mode gradient: Deep purple to dark red -->
+        <linearGradient id="darkSkyGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="hsl(260, 40%, 15%)" />
+            <stop offset="40%" stop-color="hsl(280, 35%, 25%)" />
+            <stop offset="70%" stop-color="hsl(350, 50%, 30%)" />
+        </linearGradient>
+    </defs>
+
+    <!-- Background sky -->
+    <rect width="1200" height="600" fill="url(#skyGradient)" class="dark:fill-[url(#darkSkyGradient)]" />
+
+    <!-- Distant mountains: Lighter in dawn, darker and more muted in dusk -->
+    <path d="M0 250 L200 180 L400 220 L600 150 L800 200 L1000 170 L1200 220 L1200 600 L0 600 Z"
+          fill="hsl(20, 45%, 45% / 0.8)"
+          class="dark:fill-[hsl(260,_30%,_20%_/_0.9)]" />
+
+    <!-- Middle ground mountains: Warmer in dawn, cooler in dusk -->
+    <path d="M0 300 L300 250 L500 320 L700 280 L900 350 L1200 300 L1200 600 L0 600 Z"
+          fill="hsl(25, 40%, 50% / 0.9)"
+          class="dark:fill-[hsl(270,_35%,_25%_/_0.9)]" />
+
+    <!-- Foreground terrain: Rich earth tones shifting to deep purple -->
+    <path d="M0 400 L200 380 L400 420 L600 390 L800 430 L1000 400 L1200 420 L1200 600 L0 600 Z"
+          fill="hsl(30, 35%, 55%)"
+          class="dark:fill-[hsl(280,_30%,_30%)]" />
+
+    <!-- Desert floor: Warm sand to deep earth -->
+    <path d="M0 460 L1200 460 L1200 600 L0 600 Z"
+          fill="hsl(35, 40%, 65%)"
+          class="dark:fill-[hsl(290,_25%,_35%)]" />
+
+    <!-- Abstract sage brush: Vibrant in dawn, subtle in dusk -->
+    <g fill="hsl(100, 35%, 55% / 0.4)" class="dark:fill-[hsl(270,_20%,_45%_/_0.3)]">
+        <circle cx="100" cy="480" r="5" />
+        <circle cx="300" cy="490" r="4" />
+        <circle cx="500" cy="470" r="6" />
+        <circle cx="700" cy="485" r="5" />
+        <circle cx="900" cy="475" r="4" />
+        <circle cx="1100" cy="480" r="5" />
+    </g>
+
+    <!-- Heat waves: Warm light in dawn, cool glow in dusk -->
+    <g stroke="hsl(35, 90%, 75% / 0.3)" stroke-width="2" fill="none" class="dark:stroke-[hsl(260,_40%,_60%_/_0.2)]">
+        <path d="M100 440 Q 150 430, 200 440 Q 250 450, 300 440" />
+        <path d="M500 450 Q 550 440, 600 450 Q 650 460, 700 450" />
+        <path d="M900 445 Q 950 435, 1000 445 Q 1050 455, 1100 445" />
+    </g>
+</svg>
