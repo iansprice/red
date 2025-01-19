@@ -9,7 +9,6 @@
           {{ new Date(data.date).toLocaleDateString() }}
         </div>
       </div>
-
       <!-- Blog Post Content -->
       <ContentDoc />
     </Prose>

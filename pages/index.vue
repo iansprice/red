@@ -1,6 +1,6 @@
 <template>
-  <div id="zoom-wrapper" class="transition-transform duration-700 ease-out" @mousemove="handleMouseMove">
-    <svg width="100vw" height="100vh" zoomAndPan="magnify">
+  <div id="zoom-wrapper" :class="['transition-all duration-1000 ease-out', {'!bg-background': stage==='inside-planet'}]">
+    <svg width="100vw" height="100vh">
       <defs>
         <DisplacementCircles id="dis1"/>
 
@@ -125,8 +125,8 @@
             <rect width="10000%" height="10000%" fill="url(#grid)" transform="translate(-500, -10)" class="zoom-rect"/>
           </g>
           <!-- Text with ripple effect -->
-          <g :filter="stage === 'planet' ? 'url(#cursorRipple)' : undefined"
-             class="transform-gpu"
+          <g :filter="stage.includes('planet') ? 'url(#cursorRipple)' : undefined"
+             :class="['transform-gpu opacity-100 transition-opacity duration-500', {'opacity-25': stage === 'inside-planet'}]"
           >
             <text x="0vw" y="50vh"
                   class="opacity-0 mix-blend-hard-light animate-[fade-in_0.25s_ease-in_forwards_2s]"
@@ -165,8 +165,12 @@
         </g>
       </g>
     </svg>
-    {{stage}}
-    <Planet class="fixed -top-16 right-8 fit w-120 pb-0 border-2 border-teal-800 bg-black" v-if="stage==='planet'"/>
+      <Planet
+          class="fixed top-0 !right-0 fit pb-0"
+          :class="['fixed', {'top-0 !right-0 ': stage==='planet'}, 'fit pb-0']"
+          v-if="['planet','inside-planet'].includes(stage)"
+          @expanded="stage='inside-planet'"
+      />
   </div>
 </template>
 
@@ -179,7 +183,7 @@ definePageMeta({
 })
 
 const turbulenceFreq = 0.1
-type Stage = 'pool' | 'planet'
+type Stage = 'pool' | 'planet' | 'inside-planet'
 const stage: Ref<Stage> = ref('pool')
 
 setTimeout(() => {
@@ -190,7 +194,7 @@ watch(
     stage,
     (s, oS) => {
       if (oS) {
-        document.querySelector<SVGSVGElement>(`.${oS}-only`).remove()
+        document.querySelector<SVGSVGElement>(`.${oS}-only`)?.remove()
       }
     },
     {immediate: true}
