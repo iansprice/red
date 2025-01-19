@@ -109,7 +109,6 @@ export interface OscillateProps {
 }
 
 import {type Reactive, reactive, ref, watch} from "vue"
-
 export default function useOscillate(initial: OscillateProps = {
   max: 2500,
   min: .01,
@@ -119,26 +118,56 @@ export default function useOscillate(initial: OscillateProps = {
   skew: 0.5,
   on: true,
   centerPhase: false,
+
 }) {
   let start = new Date()
+  let lastTime = start.getTime()
+  let accumulatedPhase = 0
   const oscillateArgs: Reactive<OscillateProps> = reactive(initial)
+
   watch(
-    () => oscillateArgs.on,
-    (on) => {
-      if (on) start = new Date()
-    },
-    {immediate: true}
+      () => oscillateArgs.on,
+      (on) => {
+        if (on) {
+          start = new Date()
+          lastTime = start.getTime()
+          accumulatedPhase = 0
+        }
+      },
+      {immediate: true}
+  )
+
+  // Watch for changes in cycleLengthSeconds
+  watch(
+      () => oscillateArgs.cycleLengthSeconds,
+      () => {
+        // When cycle length changes, preserve the current phase
+        const currentTime = new Date().getTime()
+        const deltaTime = currentTime - lastTime
+        // Add the phase accumulated in this time slice
+        accumulatedPhase += (2.0 * Math.PI * deltaTime) / (oscillateArgs.cycleLengthSeconds * 1000)
+        lastTime = currentTime
+      }
   )
 
   /**
-   * Oscillate - Make things go back and forth
+   * Oscillate - Make things go back and forth with phase continuity
    */
   const oscillate = () => {
-    const amplitudeAtMax = Math.abs(oscillateArgs.max - oscillateArgs.min) / 2;
-    const mid = (oscillateArgs.max + oscillateArgs.min) / 2;
-    const amplitude = oscillateArgs.amplitudeRatio * amplitudeAtMax;
-    const time = (new Date().getTime() - start.getTime());
-    return mid + amplitude * MathFunctions[oscillateArgs.trigonometricFunction]((Math.PI * 2.0) * (time / (oscillateArgs.cycleLengthSeconds * 1000)), oscillateArgs.skew);
+    const amplitudeAtMax = Math.abs(oscillateArgs.max - oscillateArgs.min) / 2
+    const mid = (oscillateArgs.max + oscillateArgs.min) / 2
+    const amplitude = oscillateArgs.amplitudeRatio * amplitudeAtMax
+
+    const currentTime = new Date().getTime()
+    const deltaTime = currentTime - lastTime
+
+    // Calculate the new phase increment
+    const phaseIncrement = (2.0 * Math.PI * deltaTime) / (oscillateArgs.cycleLengthSeconds * 1000)
+    accumulatedPhase += phaseIncrement
+    lastTime = currentTime
+
+    // Use the accumulated phase for the waveform calculation
+    return mid + amplitude * MathFunctions[oscillateArgs.trigonometricFunction](accumulatedPhase, oscillateArgs.skew)
   }
 
   return {

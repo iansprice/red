@@ -12,7 +12,7 @@ const max = 2500;
 
 const {oscillate, oscillateArgs} = useOscillate({
   max: 100,
-  min: 0,
+  min: 0.004,
   trigonometricFunction: "Sin",
   cycleLengthSeconds: 5,
   skew: 0,
@@ -85,6 +85,8 @@ const showOscilloscope = useRouteQuery('display', '', {transform: Boolean})
 const toggleOscilloscope = () => {
   router.push({query: {display:showOscilloscope.value ? '' : 'oscilloscope'}})
 }
+
+const oscillatorTimeWindow = ref(5)
 </script>
 
 <template>
@@ -100,7 +102,7 @@ const toggleOscilloscope = () => {
             id="delay"
             :max="100"
             :min="0"
-            :step=".011"
+            :step=".01"
         />
         <span>{{ delay.toFixed(1) }}ms delay</span>
       </div>
@@ -135,10 +137,18 @@ const toggleOscilloscope = () => {
       :min="oscillateArgs.min"
       :max="oscillateArgs.max"
       :stroke="fillColor"
+      :time-window="oscillatorTimeWindow"
+      :max-points="20000"
+  />
+  <URange
+      v-model.number="oscillatorTimeWindow"
+      :min="0.004"
+      :max="100"
+      :step="0.001"
   />
 
   <div
-      v-else
+      v-if="route.query.display!=='oscilloscope'"
       class="overflow-x-hidden overflow-y-hidden flex flex-row justify-center items-center">
     <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
          width="1161.000000pt" height="1036" viewBox="0 0 1161.000000 1036.000000"

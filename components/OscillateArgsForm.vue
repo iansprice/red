@@ -1,58 +1,88 @@
 <script setup lang="ts">
 import {MathFunctions, type OscillateProps} from "../composables/useOscillate";
 
+defineProps<{
+  alwaysOn?: boolean
+}>()
 const modelValue = defineModel<OscillateProps>()
 const options = Object.keys(MathFunctions)
+
+
+function logScale(value: number, min: number = 0, max: number = 100) {
+  // Handle edge cases
+  if (value <= min) return 1;
+  if (value >= max) return max;
+
+  // Calculate log scale
+  // Using Math.exp() to create exponential curve
+  const minv = Math.log(1);  // Log of 1 = 0
+  const maxv = Math.log(max + 1);  // Using 2501 to make max exactly 2500
+
+  // Calculate scale
+  const scale = (maxv - minv) / (max - min);
+
+  return Math.round(Math.exp(minv + scale * (value - min)));
+}
+
 </script>
 
 <template>
-  <div>
-    <div>
-      <div>
-        <label for="on">Enabled</label>
-      </div>
+  <div class="border border-gray-700 px-3 py-2 gap-3">
+    <div v-if="!alwaysOn">
       <UToggle
           id="on"
-          :class="{'text-sage-100': !modelValue.on}"
+          size="md"
+          :class="['mx-3 mt-1', {'text-sage-100': !modelValue.on}]"
           v-model="modelValue.on"
       />
+      <label for="on">Enabled</label>
     </div>
-    <label for="oscillation">Cycle length</label>
-    <URange
-        :disabled="!modelValue.on"
-        v-model.number="modelValue.cycleLengthSeconds"
-        type="range"
-        :min="modelValue.min"
-        :max="modelValue.max"
-        :step="0.001"
-        id="oscillation"
-    />
-    <span>{{ modelValue.cycleLengthSeconds }}s cycle length</span>
-    <USelectMenu :disabled="!modelValue.on" v-model="modelValue.trigonometricFunction" :options="options" />
-    <label for="amplitudeRatio">Amplitude</label>
-    <URange
-        :disabled="!modelValue.on"
-        v-model.number="modelValue.amplitudeRatio"
-        :min="0.0001"
-        :max="1"
-        :step="0.0001"
-        id="amplitudeRatio"
-    />
 
-    <label for="skew">Skew amount</label>
-    <URange
-        :disabled="!modelValue.on"
-        v-model.number="modelValue.skew"
-        :min="-1"
-        :max="1"
-        :step="0.001"
-    />
+    <div>
+      <label for="waveform">Waveform</label>
+      <USelectMenu id="waveform" :disabled="!modelValue.on" v-model="modelValue.trigonometricFunction" :options="options"/>
+    </div>
 
-    <label for="centerPhase">Center phase</label>
-    <UToggle
-      :disabled="!modelValue.on"
-      v-model="modelValue.centerPhase"
-    />
+    <div class="flex">
+      <div class="flex flex-col">
+        <LogDial
+            reverse
+            v-model:model-value="modelValue.cycleLengthSeconds"
+            :max-value="modelValue.max"
+            :min-value="modelValue.min"
+            :disabled="!modelValue.on"
+            :size="120"
+            :precision="2"
+        />
+        <label for="oscillation">Frequency</label>
+        <div>{{ (1/modelValue.cycleLengthSeconds).toFixed(3) }}hz</div>
+      </div>
+      <div class="flex flex-col">
+        <LogDial
+            :disabled="!modelValue.on"
+            v-model.number="modelValue.amplitudeRatio"
+            :min-value="0.001"
+            :max-value="1"
+            :size="120"
+            id="amplitudeRatio"
+        />
+        <label for="amplitudeRatio">Amplitude</label>
+        <div>{{ modelValue.amplitudeRatio.toFixed(2) }}</div>
+      </div>
+
+      <div class="flex flex-col">
+        <LogDial
+            :disabled="!modelValue.on"
+            v-model.number="modelValue.skew"
+            :min-value="-1"
+            :max-value="1"
+            :size="120"
+        />
+        <label for="skew">Skew amount</label>
+      </div>
+
+    </div>
+
   </div>
 </template>
 
