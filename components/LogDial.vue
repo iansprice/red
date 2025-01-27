@@ -6,6 +6,7 @@
         :height="size"
         @mousedown="startDrag"
         @touchstart="startDrag"
+        class="cursor-pointer"
         ref="svg"
     >
       <!-- Background circle -->
@@ -44,7 +45,7 @@
             font-size="12"
             text-anchor="middle"
             alignment-baseline="middle"
-            fill="#4a5568"
+            class="text-foreground"
         >
           {{ formatValue(tick.value) }}
         </text>
@@ -62,7 +63,11 @@
     </svg>
 
     <!-- Current value display -->
-    <div class="value-display">
+    <div
+        class="value-display cursor-pointer text-foreground"
+        @mousedown="startDrag"
+        @touchstart="startDrag"
+    >
       {{ formatValue(displayValue) }}
     </div>
   </div>
@@ -240,12 +245,12 @@ const formatValue = (value) => {
 
   // For very small numbers, use scientific notation
   if (absValue < 0.01) {
-    return value.toExponential(2)
+    return `${(value * 1000).toFixed(1)}m`
   }
 
   // For very large numbers, use scientific notation
   if (absValue >= 10000) {
-    return value.toExponential(2)
+    return `${(value / 1000).toFixed(1)}k`
   }
 
   // For numbers between 0.01 and 100, show more decimal places
@@ -276,7 +281,7 @@ const startDrag = (event) => {
       const deltaY = currentY - lastY
 
       // Update angle based on movement
-      const sensitivity = 0.125
+      const sensitivity = 0.35
       let newAngle = angle.value + ((deltaX + -deltaY) * sensitivity)
       newAngle = Math.max(START_ANGLE, Math.min(END_ANGLE, newAngle))
 
@@ -319,7 +324,6 @@ watch(() => props.modelValue, (newValue) => {
   if (newValue !== displayValue.value) {
     const fraction = logToLinear(newValue)
     angle.value = fractionToAngle(fraction)
-    displayValue.value = newValue
   }
 })
 </script>
@@ -337,7 +341,6 @@ watch(() => props.modelValue, (newValue) => {
   transform: translate(-50%, -50%);
   font-size: 1.2em;
   font-weight: bold;
-  color: #2d3748;
 }
 
 svg {

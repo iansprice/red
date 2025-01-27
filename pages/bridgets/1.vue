@@ -157,7 +157,7 @@ const oscillatorTimeWindow = ref(5)
          preserveAspectRatio="xMidYMid meet">
       <g
           transform="translate(0.000000,1036.000000) scale(0.100000,-0.100000)"
-          class="" ref="group">
+          ref="group">
         <path d="M6876 10277 c-100 -43 -222 -96 -272 -117 l-91 -38 -186 115 -186
   114 -63 -3 -63 -3 243 -146 242 -147 345 147 c189 80 344 148 345 152 0 3 -30
   5 -66 5 -61 0 -82 -7 -248 -79z"/>

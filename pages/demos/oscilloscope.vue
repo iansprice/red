@@ -41,14 +41,13 @@ const oscillatorTimeWindow = ref(5)
 <template>
   <div>
     <div class="flex flex-auto justify-around">
-      <div class="w-2/5">
-        <OscillateArgsForm class="flex flex-col " v-model="oscillateArgs" />
-      </div>
-      <div class="w-2/5">
-        <div>
-          <label for="color">Color</label>
-          <input type="color" v-model="fillColor" id="color"/>
-        </div>
+      <div >
+        <OscillateArgsForm class="flex flex-col " v-model="oscillateArgs" >
+          <div>
+            <label for="color">Color</label>
+            <input type="color" v-model="fillColor" id="color"/>
+          </div>
+        </OscillateArgsForm>
       </div>
     </div>
     <div class="flex justify-end">
