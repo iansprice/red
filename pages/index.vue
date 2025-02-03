@@ -126,7 +126,7 @@
           </g>
           <!-- Text with ripple effect -->
           <g :filter="stage.includes('planet') ? 'url(#cursorRipple)' : undefined"
-             :class="['transform-gpu opacity-100 transition-opacity duration-500', {'opacity-25': stage === 'inside-planet'}]"
+             :class="['transform-gpu opacity-100 transition-opacity duration-500', {'opacity-25': stage === 'inside-planet'}, {'!opacity-0': stage === 'fade-planet'}]"
           >
             <text x="0vw" y="50vh"
                   class="opacity-0 mix-blend-hard-light animate-[fade-in_0.25s_ease-in_forwards_2s]"
@@ -168,8 +168,10 @@
       <Planet
           class="fixed top-0 !right-0 fit pb-0"
           :class="['fixed', {'top-0 !right-0 ': stage==='planet'}, 'fit pb-0']"
-          v-if="['planet','inside-planet'].includes(stage)"
+          v-if="['planet','inside-planet', 'fade-planet'].includes(stage)"
           @expanded="stage='inside-planet'"
+          @inner-click="stage='fade-planet'"
+          @inner-click-end="onPlanetZoomed"
       />
   </div>
 </template>
@@ -177,13 +179,12 @@
 <script setup lang="ts">
 import {Ref, ref} from 'vue';
 import DisplacementCircles from "../components/filters/DisplacementCircles.vue";
+import {navigateTo} from "nuxt/app";
 
-definePageMeta({
-  layout: "full"
-})
+const onPlanetZoomed = () => navigateTo('/horses')
 
 const turbulenceFreq = 0.1
-type Stage = 'pool' | 'planet' | 'inside-planet'
+type Stage = 'pool' | 'planet' | 'inside-planet' | 'fade-planet'
 const stage: Ref<Stage> = ref('pool')
 
 setTimeout(() => {

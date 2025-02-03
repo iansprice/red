@@ -1,7 +1,13 @@
 <template>
   <NuxtLayout>
-    <NuxtPage />
+    <Suspense>
+      <NuxtPage />
+    </Suspense>
   </NuxtLayout>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+</script>
+
+<style>
+</style>

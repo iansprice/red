@@ -30,7 +30,7 @@ const isExpanded = ref(false)
 const hasBeenHovered = ref(false)
 const isZooming = ref(false)
 
-const emit = defineEmits<{expanded: [boolean]}>()
+const emit = defineEmits<{expanded: [boolean], 'inner-click': [void], 'inner-click-end': [void]}>()
 
 watch(
     isExpanded,
@@ -355,8 +355,8 @@ const easeInOutCubic = (t: number): number => {
       ? 4 * t * t * t
       : 1 - Math.pow(-2 * t + 2, 3) / 2
 }
-
-const handleInnerSphereClick = async () => {
+const handleInnerSphereClick = () => {
+  emit('inner-click')
   if (isZooming.value) return
 
   const obj = threeObjects.value
@@ -370,18 +370,15 @@ const handleInnerSphereClick = async () => {
   zoomState.value.startTime = performance.now()
   zoomState.value.isAnimating = true
 
-  // Wait for zoom animation to complete
-  await new Promise(resolve => {
-    const checkZoom = setInterval(() => {
-      if (!zoomState.value.isAnimating) {
-        clearInterval(checkZoom)
-        resolve(true)
-      }
-    }, zoomState.value.duration)
-  })
+  // Use setTimeout instead of setInterval for cleaner timing
+  setTimeout(() => {
+    // Reset animation state
+    zoomState.value.isAnimating = false
+    obj.controls.enabled = true
+    isZooming.value = false
 
-  // Navigate after zoom completes
-  navigateTo('/bridgets/1')
+    emit('inner-click-end')
+  }, zoomState.value.duration)
 }
 
 const cleanup = () => {

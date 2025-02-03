@@ -1,0 +1,165 @@
+<script setup lang="ts">
+import {FontLoader} from "three/examples/jsm/loaders/FontLoader";
+
+import {ref} from 'vue'
+import {TresCanvas, useRenderLoop} from '@tresjs/core'
+import {OrbitControls, Ocean, MeshGlassMaterial} from '@tresjs/cientos'
+import * as THREE from 'three'
+
+import {extend} from '@tresjs/core'
+import {TextGeometry} from 'three/examples/jsm/geometries/TextGeometry'
+import {ExtrudeGeometryOptions} from "three/src/geometries/ExtrudeGeometry";
+
+extend({TextGeometry})
+
+
+// Grid rotation state
+const gridRotation = ref(new THREE.Euler(0, 0, 0))
+
+// Create mountain shape
+const mountainShape = new THREE.Shape()
+// Starting point
+mountainShape.moveTo(-1, 0)
+// First mountain (taller)
+mountainShape.lineTo(-3, 0)
+mountainShape.lineTo(-1, 3.6) // 20% taller
+mountainShape.lineTo(1, 0)
+// Second mountain
+mountainShape.lineTo(-1, 0)
+mountainShape.lineTo(1, 3)
+mountainShape.lineTo(3, 0)
+// Close the shape
+mountainShape.lineTo(-1, 0)
+mountainShape.autoClose = true
+
+// Extrusion settings
+const extrudeSettings: ExtrudeGeometryOptions = {
+  steps: 2,
+  depth: 0.8, // Thickness of the mountains
+  bevelEnabled: false,
+  bevelThickness: 0.02,
+  bevelSize: 0.02,
+}
+
+// Text geometry setup
+const fontLoader = new FontLoader()
+const mounted = ref(false)
+
+// Corner text geometries
+const textGeometries = ref({
+  PROJECTS: null,
+  WORK: null,
+  MUSIC: null,
+  WRITING: null
+})
+
+onMounted(() => {
+  fontLoader.load('/stix.json', (font) => {
+    // Create geometries for corner texts
+    Object.keys(textGeometries.value).forEach(text => {
+      const geometry = new TextGeometry(text, {
+        font,
+        size: 1.5,  // Increased size
+        depth: 0.2,
+        curveSegments: 12,
+        bevelEnabled: true,
+        bevelThickness: 0.03,
+        bevelSize: 0.02,
+        bevelOffset: 0,
+        bevelSegments: 5
+      })
+      geometry.center()
+      textGeometries.value[text] = geometry
+    })
+  })
+  setTimeout(() => mounted.value = true, 250)
+})
+
+// Animation loop
+const {onLoop} = useRenderLoop()
+onLoop(() => {
+  // Update grid rotation
+  gridRotation.value.y -= 0.002
+})
+
+const cameraTarget = new THREE.Vector3(0, 1, 0) // Target point above grid
+const autoRotating = ref(true)
+
+// Clean up
+onUnmounted(() => {
+  stop()
+})
+</script>
+
+<template>
+  <div class="h-screen">
+    <Menu
+        class="!z-50"
+        :links="[{title: 'Work', to:{name:'projects'}}, {title: 'Blog', to: {name:'blog'}},{title: 'Bridgets', to: 'bridgets/1'}]"/>
+    <transition name="fade-slow">
+      <div
+          class="h-screen w-screen z-10"
+          v-show="mounted"
+          @click.meta="autoRotating=false"
+      >
+        <TresCanvas
+            class="touch-auto"
+        >
+          <TresPerspectiveCamera
+              :zoom="0.5"
+              :position="[2, 1, 20]"
+              :lookAt="[-5, -4, -2]"
+          />
+          <TresAmbientLight :intensity="0.5"/>
+          <TresDirectionalLight
+              :position="[5, 5, 5]"
+              :intensity="5"
+              :castShadow="true"
+          />
+
+          <!-- Mountains -->
+          <TresMesh
+              :position="[0, 1.5, 0]"
+              :rotation="[0, 0, 0]"
+              :castShadow="true"
+              :receiveShadow="true"
+          >
+            <TresExtrudeGeometry
+                :args="[mountainShape, extrudeSettings]"
+            />
+            <TresMeshStandardMaterial
+                :color="0x8B0000"
+                :metalness="0.3"
+                :roughness="0.2"
+                :side="THREE.DoubleSide"
+
+            />
+          </TresMesh>
+
+          <Suspense>
+            <Ocean/>
+          </Suspense>
+
+          <!-- Controls -->
+          <OrbitControls
+              :autoRotate="autoRotating"
+              :autoRotateSpeed=".6"
+              :dampingFactor=".2"
+              :enableDamping="true"
+              :enablePan="false"
+              :enableRotate="true"
+              :min-distance="7.5"
+              :max-distance="400"
+              :minPolarAngle="Math.PI / 3.5"
+              :maxPolarAngle="Math.PI / 2"
+              :target="cameraTarget"
+          />
+        </TresCanvas>
+
+      </div>
+    </transition>
+  </div>
+</template>
+
+<style>
+</style>
