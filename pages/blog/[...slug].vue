@@ -16,6 +16,7 @@
 </template>
 
 <script setup>
+
 // Fetch the current page data
 const params = useRoute().params
 

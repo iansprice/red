@@ -11,13 +11,13 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/content": "^2.9.0",
+    "@nuxt/content": "^3.1.0",
     "@nuxt/devtools": "^1.0.6",
     "@nuxt/ui": "^2.20.0",
     "@nuxtjs/tailwindcss": "^6.10.1",
     "@tailwindcss/typography": "^0.5.15",
     "@tresjs/nuxt": "^3.0.7",
-    "@types/node": "^20.10.4",
+    "@types/node": "^20.17.16",
     "@types/three": "^0.172.0",
     "@vueuse/nuxt": "^12.0.0",
     "nuxt": "^3.8.2",
@@ -38,6 +38,6 @@
     "three": "^0.172.0"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.17.16"
   }
 }
