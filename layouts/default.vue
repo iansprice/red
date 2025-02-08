@@ -7,19 +7,27 @@
         RED MOUNTAIN SOFTWARE
       </div>
     </transition>
-    <transition name="zoom" >
-      <UBreadcrumb
-          v-if="!['horses','index'].includes($route.name)"
-          divider="/"
-          :links="[{ label: 'Home', to: {name:'horses'} }, { label: 'Projects', to: {name: 'projects'} }, { label: $route.matched.title }]"
-      />
-    </transition>
-    {{$route}}
+
     <NuxtPage/>
   </div>
 </template>
 
 <script setup>
+// const route = useRoute()
+// const page = await queryCollection('content')
+//     .where('path', 'LIKE', route.path.substring(1))
+//     .first()
+// const breadcrumbs = []
+// const pagePathExploded = page.path.split('/')
+//
+// let tmpPagePath = ''
+//
+// for (const pagePathItem of pagePathExploded) {
+//   if (pagePathItem === '') continue
+//   tmpPagePath += `/${pagePathItem}`
+//   breadcrumbs.push(await queryCollection('content').path(tmpPagePath).select('title', 'path').first())
+// }
+// const links = breadcrumbs.map(bc => ({label: bc.title, to: bc.path}))
 </script>
 
 <style>

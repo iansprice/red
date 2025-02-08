@@ -11,6 +11,6 @@ export interface Project {
   timeline?: string
   role?: string
   keyFeatures?: string[]
-  _path: string
+  path: string
   logo?: string
 }

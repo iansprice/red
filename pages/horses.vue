@@ -1,16 +1,13 @@
 <script setup lang="ts">
 import {FontLoader} from "three/examples/jsm/loaders/FontLoader";
 
-import {ref} from 'vue'
+import {ref, onUnmounted, onMounted} from 'vue'
 import {TresCanvas, useRenderLoop} from '@tresjs/core'
-import {OrbitControls, Ocean, MeshGlassMaterial} from '@tresjs/cientos'
+import {OrbitControls, Ocean,} from '@tresjs/cientos'
 import * as THREE from 'three'
 
-import {extend} from '@tresjs/core'
-import {TextGeometry} from 'three/examples/jsm/geometries/TextGeometry'
 import {ExtrudeGeometryOptions} from "three/src/geometries/ExtrudeGeometry";
 
-extend({TextGeometry})
 
 
 // Grid rotation state
@@ -54,24 +51,6 @@ const textGeometries = ref({
 })
 
 onMounted(() => {
-  fontLoader.load('/stix.json', (font) => {
-    // Create geometries for corner texts
-    Object.keys(textGeometries.value).forEach(text => {
-      const geometry = new TextGeometry(text, {
-        font,
-        size: 1.5,  // Increased size
-        depth: 0.2,
-        curveSegments: 12,
-        bevelEnabled: true,
-        bevelThickness: 0.03,
-        bevelSize: 0.02,
-        bevelOffset: 0,
-        bevelSegments: 5
-      })
-      geometry.center()
-      textGeometries.value[text] = geometry
-    })
-  })
   setTimeout(() => mounted.value = true, 250)
 })
 

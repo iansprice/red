@@ -10,7 +10,7 @@
         </div>
       </div>
       <!-- Blog Post Content -->
-      <ContentDoc />
+      <ContentRenderer />
     </Prose>
   </article>
 </template>
@@ -18,15 +18,11 @@
 <script setup>
 // Fetch the current page data
 const params = useRoute().params
-const queryContent = useContent()
-const { data } = await useAsyncData('post:'+params.slug, () =>
-    queryContent()
-        .where({ _path: useRoute().path })
-        .findOne()
-)
+
+const data = await queryCollection('blog').path(useRoute().path).first()
 
 // Handle 404
-if (!data.value) {
+if (!data) {
   throw createError({
     statusCode: 404,
     message: 'Blog post not found'

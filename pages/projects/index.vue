@@ -1,13 +1,14 @@
 <template>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <h1 class="text-3xl font-bold text-center">Projects</h1>
-    <div class="mt-6 grid gap-8 lg:grid-cols-2">
+    <Prose class="mt-6 gap-6 flex flex-col self-center items-center align-middle">
       <Project
           v-for="project in projects"
-          :key="project._path"
+          :key="project.path"
           :project="project"
+          class="flex-1"
       />
-    </div>
+    </Prose>
     <div class="my-6">
     <SpotlightButton :to="{name:'horses'}" >
       Return
@@ -17,14 +18,9 @@
 </template>
 
 <script setup>
-import Project from "~/components/Project.vue";
-
 const { data: projects } = await useAsyncData('projects', () =>
-    queryContent('projects').find()
+    queryCollection('projects').all()
 )
 
-definePageMeta({
-  pageTransition: {name: 'slide-left'}
-})
 </script>
 

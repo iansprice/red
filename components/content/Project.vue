@@ -1,20 +1,15 @@
 <script setup lang="ts">
-
-import {type Project} from "../../types/types";
-
-defineProps<{ project: Project }>()
+defineProps<{ project: any }>()
 </script>
 
 <template>
-  <SpotlightButton :to="project._path">
-    <article class="overflow-hidden cursor-pointer w-100 flex">
-      <Prose class="p-6 grow">
-        <div class="flex justify-center">
-          <img v-if="project.logo" :src="project.logo" :alt="`${project.title} logo`" class="h-12 w-auto "/>
-          <h2 v-else class="text-xl font-semibold grow">{{ project.title }}</h2>
+  <SpotlightButton :to="project.path">
+    <article class="flex w-full px-6 py-3">
+        <img :src="project.meta.logo" :alt="`${project.title} logo`" class="w-12 !h-auto"/>
+        <div class="flex-col justify-between align-top text-left mx-6 my-3">
+          <h2 class="text-xl font-extrabold">{{ project.title }}</h2>
+          <p class="mt-2 ">{{ project.description }}</p>
         </div>
-        <p class="mt-2 ">{{ project.description }}</p>
-      </Prose>
     </article>
   </SpotlightButton>
 </template>
