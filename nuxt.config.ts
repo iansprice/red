@@ -45,4 +45,7 @@ export default defineNuxtConfig({
   typescript: {
     strict: false
   },
+  ui: {
+    global: false,
+  }
 })
