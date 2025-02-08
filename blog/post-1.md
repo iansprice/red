@@ -1,6 +1,7 @@
 ---
 description: Introduction to my blog
 date: 2024-01-01
+body: bodyyy
 ---
 
 # My First Blog Post

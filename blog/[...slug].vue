@@ -10,7 +10,7 @@
         </div>
       </div>
       <!-- Blog Post Content -->
-      <ContentDoc />
+      <ContentRenderer :  />
     </Prose>
   </article>
 </template>

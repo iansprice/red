@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "deploy": "npx nuxi build --preset=cloudflare_pages && wrangler pages deploy dist/",
+    "deploy": "npx nuxi build --preset=github_pages && wrangler pages deploy dist/",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -13,7 +13,7 @@
   "devDependencies": {
     "@nuxt/content": "^3.1.0",
     "@nuxt/devtools": "^1.0.6",
-    "@nuxt/ui": "^2.20.0",
+    "@nuxt/ui": "^2.21.0",
     "@nuxtjs/tailwindcss": "^6.10.1",
     "@tailwindcss/typography": "^0.5.15",
     "@tresjs/nuxt": "^3.0.7",
