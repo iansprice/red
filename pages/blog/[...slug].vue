@@ -10,13 +10,12 @@
         </div>
       </div>
       <!-- Blog Post Content -->
-      <ContentRenderer :value="data"/>
+      <ContentRenderer />
     </Prose>
   </article>
 </template>
 
 <script setup>
-
 // Fetch the current page data
 const params = useRoute().params
 
