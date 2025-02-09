@@ -2,7 +2,7 @@
 <template>
   <NuxtLink :to="to" class=" group">
     <button
-        class="relative overflow-hidden rounded-lg hover:bg-white/03 text-white hover:shadow-2xl border border-primary/5 hover:border-transparent hover:scale-105 transition-all duration-250"
+        class="relative overflow-hidden rounded-lg hover:bg-white/03 text-white hover:shadow-2xl border border-primary/5 hover:border-transparent hover:scale-105 transition-all duration-250 py-3 px-4"
         @mousemove="handleMouseMove"
         @mouseenter="isHovered = true"
         @mouseleave="isHovered = false"

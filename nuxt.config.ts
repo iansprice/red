@@ -3,6 +3,9 @@ import {defineNuxtConfig} from "nuxt/config";
 
 export default defineNuxtConfig({
     compatibilityDate: '2024-11-26',
+    alias: {
+        "~": ".",
+    },
     app: {
         pageTransition: {name: 'fade', mode: 'out-in'},
         head: {
@@ -13,7 +16,6 @@ export default defineNuxtConfig({
                 {hid: 'description', name: 'description', content: 'My Professional Portfolio'}
             ]
         },
-        layoutTransition: {name: 'layout', mode: 'out-in'},
     },
     css: [
         '@/assets/css/animations.css',
@@ -22,7 +24,7 @@ export default defineNuxtConfig({
     ],
     devtools: {enabled: true},
     experimental: {
-        payloadExtraction: false
+        payloadExtraction: false,
     },
     modules: [
         '@nuxt/content',

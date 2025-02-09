@@ -9,7 +9,7 @@ const props = defineProps<{ title?: string, links: Link[] }>()
 
 <template>
   <div class="text-center">
-    <div class="text text-xl font-mono my-3" v-if="title">
+    <div class="text text-xl my-3" v-if="title">
       {{ title }}
     </div>
     <div class="text-2xl my-3 flex flex-col">

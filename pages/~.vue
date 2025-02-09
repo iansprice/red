@@ -71,7 +71,6 @@ onUnmounted(() => {
 <template>
   <div class="h-screen">
     <Menu
-        v-if="false"
         class="!z-50 pointer-events-auto"
         style="z-index: 50; pointer-events: auto; isolation: isolate; position: relative"
         :links="[{title: 'Work', to:{name:'projects'}}, {title: 'Blog', to: {name:'blog'}},{title: 'Bridgets', to: 'bridgets/1'}]"/>

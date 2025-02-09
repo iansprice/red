@@ -56,7 +56,7 @@ const tags = useRouteQuery('tag', "", {
   transform: Array,
 })
 const page0 = useRouteQuery('page', 0, {transform: Number})
-const page = page0 + 1
+const page = ref(page0 + 1)
 const posts = await queryCollection('blog').skip(page * limitCt).limit(limitCt).all()
 const totalPosts = await queryCollection('blog').count('path')
 </script>

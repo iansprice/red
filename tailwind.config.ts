@@ -68,7 +68,8 @@ export default {
       },
       // Font families that feel timeless yet modern
       fontFamily: {
-        'sans': ['Spectral', 'system-ui', 'sans-serif'],
+        'sans': ['IBM Plex Mono', 'monospace'],
+        // 'sans': ['Spectral', 'system-ui', 'sans-serif'],
         'display': ['Cormorant', 'Georgia', 'serif'],
         'mono': ['IBM Plex Mono', 'monospace'],
       },

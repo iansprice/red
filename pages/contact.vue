@@ -5,7 +5,7 @@
       <form @submit.prevent="handleSubmit" class="mt-8 space-y-6">
         <div>
           <label for="name" class="block text-sm font-medium ">Name</label>
-          <input
+          <IInput
               id="name"
               v-model="form.name"
               type="text"
@@ -15,7 +15,7 @@
         </div>
         <div>
           <label for="email" class="block text-sm font-medium ">Email</label>
-          <input
+          <IInput
               id="email"
               v-model="form.email"
               type="email"
@@ -25,13 +25,14 @@
         </div>
         <div>
           <label for="message" class="block text-sm font-medium">Message</label>
-          <textarea
+          <IInput
+              tag="textarea"
               id="message"
               v-model="form.message"
               rows="4"
               required
               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-          ></textarea>
+          ></IInput>
         </div>
         <div>
           <button
@@ -47,6 +48,8 @@
 </template>
 
 <script setup>
+import IInput from "../components/ui/IInput.vue";
+
 const form = reactive({
   name: '',
   email: '',

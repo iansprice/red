@@ -6,8 +6,8 @@ featured: true
 logo: logos/thermaline.png
 links:
     live: https://thermaline.com
+timeline: 2015-20
+role: Shepherd
 ---
 
-# Project Two
-
-Detailed description of your second project goes here...
+Details forthcoming.

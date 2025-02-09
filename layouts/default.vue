@@ -22,13 +22,13 @@
           </defs>
           <g filter="url(#dis1)">
             <text x="0vw" y="28"
-                  class="opacity-0 animate-[fade-in_0.25s_ease-in_forwards_0.2s]"
+                  class="animate-[fade-in_0.25s_ease-in_forwards_0.2s]"
                   text-anchor="start"
                   dominant-baseline="middle"
                   font-family="Arial Black, Arial, sans-serif"
                   font-weight="900"
                   font-size="30px"
-                  fill="#8B0000">
+                  fill="#db4740">
               RED MOUNTAIN SOFTWARE
             </text>
           </g>

@@ -6,6 +6,7 @@ featured: true
 links: 
     live: https://galvanick.com
 logo: logos/galvanick.svg
+timeline: 2024
 ---
 
-Galvanick is a company.
+Details forthcoming.
