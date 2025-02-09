@@ -37,11 +37,15 @@ const titleAnimDone = ref(false)
             :delay="0"
             @done="titleAnimDone=true"/>
         </h1>
-        <TextGenerateEffect :active="titleAnimDone" :words="data.description" :delay="500" class="mt-4 text-xl "/>
+        <TextGenerateEffect
+            :active="titleAnimDone"
+            :words="data.description"
+            :delay="500"
+            class="mt-4 text-xl text-amber-400"/>
         <div class="mt-6  gap-2" v-if="data.meta.techStack?.length">
           <Tags :value="data.meta.techStack" />
         </div>
-        <div v-if="data.meta.links">
+        <div v-if="data.meta.links" class="mt-3">
           <SpotlightButton
               v-if="data.meta.links.live"
               :to="data.meta.links.live"
@@ -58,7 +62,7 @@ const titleAnimDone = ref(false)
           </SpotlightButton>
         </div>
 
-        <ContentRenderer :value="data"/>
+        <ContentRenderer :value="data" class="mt-6"/>
 
         <div class="space-y-8 text-left w-full">
           <!-- Technical Details -->

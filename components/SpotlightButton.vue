@@ -1,4 +1,3 @@
-<!-- SpotlightButton.vue -->
 <template>
   <NuxtLink :to="to" class=" group">
     <button
@@ -11,7 +10,7 @@
           class="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300"
           :style="spotlightStyle"
       />
-      <span class="relative z-10 text-lg font-medium">
+      <span class="relative z-10 text-lg font-medium text-amber-400">
         <slot name="default"/>
       </span>
     </button>
