@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import SpotlightButton from "../../components/SpotlightButton.vue";
 import {definePageMeta, queryCollection, useRoute, createError} from "../../.nuxt/imports";
+import TextGenerateEffect from "../../components/ui/TextGenerateEffect.vue";
 
 const backButtonClicked = ref(false)
 
@@ -19,6 +20,8 @@ definePageMeta({
   pageTransition: {name: 'fade'},
   title: `Red Mountain Software // Work `
 })
+
+const titleAnimDone = ref(false)
 </script>
 
 <template>
@@ -28,9 +31,13 @@ definePageMeta({
       <Prose class="mb-12">
         <h1 class="text-3xl font-bold flex">
           <NuxtLink class="hover:underline" :to="{name:'projects'}">Work</NuxtLink>
-          - {{ data.title }}
+          <TextGenerateEffect
+            :words="' - '+data.title"
+            class=""
+            :delay="0"
+            @done="titleAnimDone=true"/>
         </h1>
-        <p class="mt-4 text-xl ">{{ data.description }}</p>
+        <TextGenerateEffect :active="titleAnimDone" :words="data.description" :delay="500" class="mt-4 text-xl "/>
         <div class="mt-6  gap-2" v-if="data.meta.techStack?.length">
           <Tags :value="data.meta.techStack" />
         </div>
