@@ -4,10 +4,12 @@ date: 2024-01-01
 image: public/thermaline.png
 ---
 
-# My First Blog Post
+# This is the blog.
 
 Content of your first blog post goes here.
 
-And we keep it going. 
+And we keep it going.
 
 It's a great thing, this.
+
+![r.gif](/r.gif)
