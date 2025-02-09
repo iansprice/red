@@ -32,7 +32,7 @@ definePageMeta({
         </h1>
         <p class="mt-4 text-xl ">{{ data.description }}</p>
         <div class="mt-6  gap-2" v-if="data.meta.techStack?.length">
-          <Tags :value="data.meta.techStack"/>
+          <Tags :value="data.meta.techStack" />
         </div>
         <div v-if="data.meta.links">
           <SpotlightButton
