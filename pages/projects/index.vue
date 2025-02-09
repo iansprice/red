@@ -1,6 +1,8 @@
 <template>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h1 class="text-3xl font-bold text-center">Projects</h1>
+    <div class="text-center">
+      <h1 class="font-bold text-3xl">Work</h1>
+    </div>
     <div class="my-6 gap-6 flex flex-wrap self-center justify-center items-center align-middle">
       <Project
           v-for="(project, index) in projects"

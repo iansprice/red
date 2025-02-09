@@ -77,7 +77,7 @@ const oscillatorTimeWindow = ref(5)
               :max="100"
               :min="0"
               :step=".01"
-              class="-rotate-90 h-64 mt-22 w-96"
+              class="-rotate-90 -ml-[100px] -mr-[100px] h-64 mt-22 w-96"
               :style="`color:${fillColor};`"
           />
       </div>

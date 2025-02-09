@@ -22,7 +22,7 @@
           </defs>
           <g filter="url(#dis1)">
             <text x="0vw" y="28"
-                  class="animate-[fade-in_0.25s_ease-in_forwards_0.2s]"
+                  class="animate-[fade-in_0.25s_ease-in_forwards_0.5s]"
                   text-anchor="start"
                   dominant-baseline="middle"
                   font-family="Arial Black, Arial, sans-serif"

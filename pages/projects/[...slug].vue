@@ -27,7 +27,7 @@ definePageMeta({
     <div class="flex flex-col items-center">
       <Prose class="mb-12">
         <h1 class="text-3xl font-bold flex">
-          <NuxtLink class="hover:underline" :to="{name:'projects'}">Projects</NuxtLink>
+          <NuxtLink class="hover:underline" :to="{name:'projects'}">Work</NuxtLink>
           - {{ data.title }}
         </h1>
         <p class="mt-4 text-xl ">{{ data.description }}</p>

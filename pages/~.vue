@@ -71,9 +71,9 @@ onUnmounted(() => {
 <template>
   <div class="h-screen">
     <Menu
-        class="!z-50 pointer-events-auto"
+        class="z-1 pointer-events-auto"
         style="z-index: 50; pointer-events: auto; isolation: isolate; position: relative"
-        :links="[{title: 'Work', to:{name:'projects'}}, {title: 'Blog', to: {name:'blog'}},{title: 'Bridgets', to: 'bridgets/1'}]"/>
+        :links="[{title: 'Work', to:{name:'projects'}}, {title:'Oscilloscope', to:'/demos/oscilloscope'}]"/>
     <transition name="fade-slow">
       <div
           class="h-[100vh] w-screen absolute top-0"
