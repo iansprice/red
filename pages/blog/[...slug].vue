@@ -10,7 +10,7 @@
         </div>
       </div>
       <!-- Blog Post Content -->
-      <ContentRenderer />
+      <ContentRenderer :value="data" />
     </Prose>
   </article>
 </template>
