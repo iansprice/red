@@ -9,7 +9,7 @@
       />
     </div>
     <div class="my-6">
-    <SpotlightButton :to="{name:'horses'}" >
+    <SpotlightButton :to="{name:'~'}" >
       Return
     </SpotlightButton>
     </div>

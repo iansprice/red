@@ -1,6 +1,6 @@
 <template>
-  <div id="zoom-wrapper" :class="['transition-all duration-1000 ease-out', {'!bg-background': stage==='inside-planet'}]">
-    <svg width="100vw" height="100vh">
+  <div id="zoom-wrapper" :class="['fixed top-0 transition-all duration-1000 ease-out', {'!bg-background': stage==='inside-planet'}]">
+    <svg width="100vw" height="100vh" >
       <defs>
         <DisplacementCircles id="dis1"/>
 
@@ -28,56 +28,6 @@
           <stop offset="50%" stop-color="white" stop-opacity="0.5"/>
           <stop offset="100%" stop-color="white" stop-opacity="0"/>
         </radialGradient>
-
-        <!-- Cursor ripple filter -->
-        <filter id="cursorRipple" x="-50%" y="-50%" width="200%" height="200%">
-          <!-- Create intense local distortion -->
-          <feTurbulence
-              type="fractalNoise"
-              :baseFrequency="turbulenceFreq"
-              numOctaves="3"
-              seed="5"
-              result="noise">
-            <animate
-                attributeName="baseFrequency"
-                :values="`${turbulenceFreq},${turbulenceFreq};${turbulenceFreq*2},${turbulenceFreq*2};${turbulenceFreq},${turbulenceFreq}`"
-                dur="0.5s"
-                repeatCount="indefinite"/>
-          </feTurbulence>
-
-          <!-- Create splash mask -->
-          <feImage
-              width="300"
-              height="300"
-              href="#splashGradient"
-              result="splash"/>
-
-          <!-- Combine noise with splash -->
-          <feDisplacementMap
-              in="SourceGraphic"
-              in2="noise"
-              scale="180"
-              xChannelSelector="R"
-              yChannelSelector="G"
-              result="displacement"/>
-
-          <!-- Apply splash mask -->
-          <feComposite
-              in="displacement"
-              in2="splash"
-              operator="in"
-              result="maskedDisplacement"/>
-
-          <!-- Blend with original -->
-          <feComposite
-              in="SourceGraphic"
-              in2="maskedDisplacement"
-              operator="arithmetic"
-              k1="1"
-              k2="0.5"
-              k3="0"
-              k4="0"/>
-        </filter>
 
         <filter id="turbulentBlur" x="-20%" y="-20%" width="140%" height="140%">
           <feTurbulence
@@ -112,6 +62,7 @@
               k3="0"
               k4="0"/>
         </filter>
+        <CursorRipple />
       </defs>
 
       <!-- Main content -->
@@ -180,10 +131,10 @@
 import {Ref, ref} from 'vue';
 import DisplacementCircles from "../components/filters/DisplacementCircles.vue";
 import {navigateTo} from "nuxt/app";
+import Ripple from "../components/filters/CursorRipple.vue";
+import CursorRipple from "../components/filters/CursorRipple.vue";
 
-const onPlanetZoomed = () => navigateTo('/horses')
-
-const turbulenceFreq = 0.1
+const onPlanetZoomed = () => navigateTo({name:'~'})
 type Stage = 'pool' | 'planet' | 'inside-planet' | 'fade-planet'
 const stage: Ref<Stage> = ref('pool')
 

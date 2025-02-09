@@ -241,10 +241,10 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="p-4 bg-gray-900 rounded-lg">
+  <div class="p-4 rounded-lg">
     <canvas
         ref="displayCanvas"
-        class="w-full h-[400px] bg-gray-800 rounded border border-gray-700"
+        class="w-full h-[400px] rounded border border-gray-700"
     />
     <slot/>
   </div>
