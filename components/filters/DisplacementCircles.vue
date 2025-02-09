@@ -9,7 +9,7 @@
     <!-- First layer - larger circles -->
     <feTurbulence
         type="fractalNoise"
-        baseFrequency="0.00025 0.00025"
+        baseFrequency="0.0025 0.0025"
         numOctaves="1"
         seed="1"
         result="noise1">
