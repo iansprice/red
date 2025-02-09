@@ -77,8 +77,7 @@ onUnmounted(() => {
         :links="[{title: 'Work', to:{name:'projects'}}, {title: 'Blog', to: {name:'blog'}},{title: 'Bridgets', to: 'bridgets/1'}]"/>
     <transition name="fade-slow">
       <div
-          class="h-screen w-screen absolute top-0"
-
+          class="h-[100vh] w-screen absolute top-0"
           v-show="mounted"
           @click.meta="autoRotating=false"
       >
