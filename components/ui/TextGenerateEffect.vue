@@ -1,6 +1,6 @@
 <template>
   <div :class="cn('leading-snug tracking-wide', props.class)">
-    <div ref="scope">
+    <Component :is="tag" ref="scope">
       <span
           v-for="(word, idx) in wordsArray"
           :key="word + idx"
@@ -9,7 +9,7 @@
       >
         {{ word }}&nbsp;
       </span>
-    </div>
+    </Component>
   </div>
 </template>
 
@@ -26,8 +26,9 @@ const props = withDefaults(
       delay?: number;
       class: HTMLAttributes["class"];
       active?: boolean,
+      tag?: string,
     }>(),
-    {duration: 0.7, delay: 0, filter: true, active: true},
+    {duration: 0.7, delay: 0, filter: true, active: true, tag: 'div'},
 );
 const {active} = toRefs(props)
 

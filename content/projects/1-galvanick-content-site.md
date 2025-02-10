@@ -15,4 +15,34 @@ logo: logos/galvanick.svg
 timeline: 2024
 ---
 
-Details forthcoming.
+A radical re-branding of Galvanick's public site.
+Designed in collaboration with WILL The Agency.
+
+**Features**:
+- Custom content management system
+- Dynamic form generation and validation
+- Dark/Light mode
+
+::expandable-gallery
+---
+images:
+- src: /work/galvanick-content-site/1.png
+  alt: Galvanick landing page
+  caption: Landing // Dark 
+- src: /work/galvanick-content-site/2.png
+  alt: Galvanick product page
+  caption: Product // Dark
+- src: /work/galvanick-content-site/3.png
+  alt: Galvanick contact form
+  caption: Contact // Dark
+---
+::
+
+::compare
+---
+first-image: /work/galvanick-content-site/light.png
+second-image: /work/galvanick-content-site/dark.png
+slide-mode: drag
+class: w-full
+---
+::

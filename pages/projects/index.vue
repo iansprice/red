@@ -1,7 +1,7 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12">
     <div class="text-center">
-      <h1 class="font-bold text-3xl">Work</h1>
+      <h1 class="text-3xl">Work</h1>
     </div>
     <div class="my-6 gap-6 flex flex-wrap self-center justify-center items-center align-middle">
       <Project

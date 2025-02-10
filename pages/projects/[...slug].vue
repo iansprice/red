@@ -2,6 +2,8 @@
 import SpotlightButton from "../../components/SpotlightButton.vue";
 import {definePageMeta, queryCollection, useRoute, createError} from "../../.nuxt/imports";
 import TextGenerateEffect from "../../components/ui/TextGenerateEffect.vue";
+import LampEffect from "../../components/ui/LampEffect.vue";
+import LinkPreview from "../../components/ui/LinkPreview.vue";
 
 const backButtonClicked = ref(false)
 
@@ -25,27 +27,35 @@ const titleAnimDone = ref(false)
 </script>
 
 <template>
-  <article class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- Project Header -->
+  <article class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12">
     <div class="flex flex-col items-center">
-      <Prose class="mb-12">
-        <h1 class="text-3xl font-bold flex">
-          <NuxtLink class="hover:underline" :to="{name:'projects'}">Work</NuxtLink>
-          <TextGenerateEffect
-            :words="' - '+data.title"
-            class=""
-            :delay="0"
-            @done="titleAnimDone=true"/>
-        </h1>
-        <TextGenerateEffect
-            :active="titleAnimDone"
-            :words="data.description"
-            :delay="500"
-            class="mt-4 text-xl text-primary my-4"/>
-        <div class="mt-6 gap-2" v-if="data.meta.techStack?.length">
-          <Tags :value="data.meta.techStack" />
+      <Prose>
+        <div class="flex flex-col flex-wrap justify-start not-prose">
+            <NuxtLink class="shrink no-underline hover:underline not-prose opacity-60 hover:opacity-100 transition-opacity duration-200" :to="{name:'projects'}">
+              <h2 class="text-3xl">Work</h2>
+            </NuxtLink>
+            <TextGenerateEffect
+                tag="h2"
+                class="text-3xl grow not-prose"
+                :words="data.title"
+                :delay="0"
+                @done="titleAnimDone=true"/>
+          <div
+              class="my-1 mb-3 text-xl text-primary not-prose"
+          >
+            <TextGenerateEffect
+                tag="h4"
+                class=""
+                :active="titleAnimDone"
+                :words="data.description"
+                :delay="500"
+            />
+          </div>
         </div>
-        <div v-if="data.meta.links" class="mt-3">
+        <div class="my-3 gap-2" v-if="data.meta.techStack?.length">
+          <Tags :value="data.meta.techStack"/>
+        </div>
+        <div v-if="data.meta.links" class="my-3">
           <SpotlightButton
               v-if="data.meta.links.live"
               :to="data.meta.links.live"

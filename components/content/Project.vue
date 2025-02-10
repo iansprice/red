@@ -16,18 +16,18 @@ defineProps<{
       class="project-card"
   >
     <CardContainer class="group">
-      <CardBody class="bg-black/10">
+      <CardBody class="hover:bg-black/10 bg-transparent transition-colors duration-200">
           <CardItem
               :translate-z="140"
               :rotate-z="3 * (index % 2 ? -1 : 1)"
-              class="my-6 w-full flex justify-center items-center"
+              class="my-6 mt-12 w-full flex justify-center items-center"
           >
             <img :src="project.meta.logo" :alt="`${project.title} logo`" class="w-auto !h-32"/>
           </CardItem>
-          <CardItem class="mx-6 my-3" :translate-z="60">
+          <CardItem class="mx-6 my-3" :translate-z="100">
             <h2 class="text-xl font-extrabold">{{ project.title }}</h2>
           </CardItem>
-          <CardItem class="mx-6 my-3" :translate-z="60">
+          <CardItem class="mx-6 my-3 text-primary" :translate-z="90">
             <p class="mt-2">{{ project.description }}</p>
           </CardItem>
       </CardBody>
