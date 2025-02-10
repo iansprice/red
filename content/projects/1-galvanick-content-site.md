@@ -1,6 +1,6 @@
 ---
 title: Galvanick Public Site
-description: Ushering Galvanick's complex security platform to market
+description: Ushering Galvanick's complex security platform to market.
 techStack:
   - Vercel
   - Storyblok

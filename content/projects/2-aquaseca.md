@@ -1,6 +1,6 @@
 ---
 title: AquaSeca
-description: Water intelligence using the power of sound
+description: Water intelligence using the power of sound.
 tags:
   - React
   - TypeScript

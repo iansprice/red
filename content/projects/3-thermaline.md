@@ -1,6 +1,6 @@
 ---
 title: Thermaline
-description: Bringing heat exchangers into the modern world
+description: Bringing heat exchangers into the modern world.
 tags:
   - React
   - TypeScript
