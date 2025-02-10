@@ -11,6 +11,4 @@ timeline: 2019-23
 role: Founding engineer
 ---
 
-# Project Two
-
 Details forthcoming.

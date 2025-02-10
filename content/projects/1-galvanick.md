@@ -1,6 +1,6 @@
 ---
 title: Galvanick
-description: Security for operational-technology environments
+description: Cyber-security for operational-technology environments.
 techStack:
   - AWS
   - Typescript
