@@ -6,7 +6,7 @@
       <div class="mb-8">
         <h1 class="text-3xl font-bold mb-4">{{ data.title }}</h1>
         <div class="">
-          {{ new Date(data.date).toLocaleDateString() }}
+          {{ new Date(data.meta.date).toLocaleDateString() }}
         </div>
       </div>
       <!-- Blog Post Content -->

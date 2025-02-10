@@ -55,5 +55,7 @@ export default defineNuxtConfig({
     },
     ui: {
         global: false,
+        primary: 'blue',
+        gray: 'cool'
     }
 })

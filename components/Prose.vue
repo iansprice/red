@@ -5,9 +5,9 @@ export default {
 </script>
 
 <template>
-  <div class="prose prose-stone dark:prose-invert">
+  <article class="prose md:prose-lg lg:prose-xl prose-stone dark:prose-invert max-w-full">
     <slot/>
-  </div>
+  </article>
 </template>
 
 <style scoped>

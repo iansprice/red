@@ -4,7 +4,7 @@
   >
     <transition name="zoom">
       <NuxtLink class="flex flex-col justify-center items-center scale-75 md:scale-100" v-if="$route.name !== 'index'" :to="{name:'~'}">
-        <svg width="460" height="40">
+        <svg class="w-full max-w-[460px]" viewBox="0 0 460 40">
           <defs>
             <DisplacementCircles id="dis1"/>
             <animate

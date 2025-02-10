@@ -18,23 +18,18 @@ defineProps<{
     <CardContainer class="group">
       <CardBody class="bg-black/10">
           <CardItem
-              :translate-z="120"
+              :translate-z="140"
               :rotate-z="3 * (index % 2 ? -1 : 1)"
               class="my-6 w-full flex justify-center items-center"
           >
             <img :src="project.meta.logo" :alt="`${project.title} logo`" class="w-auto !h-32"/>
           </CardItem>
-          <CardItem class="mx-6 my-3" :translate-z="50">
+          <CardItem class="mx-6 my-3" :translate-z="60">
             <h2 class="text-xl font-extrabold">{{ project.title }}</h2>
           </CardItem>
-          <CardItem class="mx-6 my-3" :translate-z="50">
-            <p class="mt-2 ">{{ project.description }}</p>
+          <CardItem class="mx-6 my-3" :translate-z="60">
+            <p class="mt-2">{{ project.description }}</p>
           </CardItem>
-<!--          <CardItem class="mx-6 mt-[80px] italic flex justify-center items-center" :translate-x="110" :translate-z="50" :translate-y="10">-->
-<!--            <div class="opacity-0 transition-opacity ease-in duration-150 group-hover:opacity-50">-->
-<!--              Learn more-->
-<!--            </div>-->
-<!--          </CardItem>-->
       </CardBody>
     </CardContainer>
   </NuxtLink>

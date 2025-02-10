@@ -1,6 +1,6 @@
 ---
 description: Introduction to my blog
-date: 2024-01-01
+date: 2025-02-09
 image: public/thermaline.png
 ---
 
