@@ -24,10 +24,10 @@ defineProps<{
           >
             <img :src="project.meta.logo" :alt="`${project.title} logo`" class="w-auto !h-32"/>
           </CardItem>
-          <CardItem class="mx-6 my-3" :translate-z="100">
+          <CardItem class="mx-6 my-3" :translate-z="60">
             <h2 class="text-xl font-extrabold">{{ project.title }}</h2>
           </CardItem>
-          <CardItem class="mx-6 my-3 text-primary" :translate-z="90">
+          <CardItem class="mx-6 my-3 text-primary" :translate-z="60">
             <p class="mt-2">{{ project.description }}</p>
           </CardItem>
       </CardBody>

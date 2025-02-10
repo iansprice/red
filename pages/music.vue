@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="flex justify-center">
+  <div class="flex justify-center my-12 scale-75 md:scale-90 lg:scale-100">
     <iframe
         style="border: 0; width: 510px; height: 620px;"
         src="https://bandcamp.com/EmbeddedPlayer/album=4061208169/size=large/bgcol=333333/linkcol=0f91ff/tracklist=false/transparent=true/"
