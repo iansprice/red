@@ -41,12 +41,6 @@ defineProps<{
 </template>
 
 <style scoped>
-::view-transition-old(project-*),
-::view-transition-new(project-*) {
-  animation-duration: 0.6s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  mix-blend-mode: normal;
-}
 
 /* Optional: Fade in the new content */
 @keyframes fade-in {

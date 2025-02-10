@@ -41,8 +41,8 @@ const titleAnimDone = ref(false)
             :active="titleAnimDone"
             :words="data.description"
             :delay="500"
-            class="mt-4 text-xl text-amber-400"/>
-        <div class="mt-6  gap-2" v-if="data.meta.techStack?.length">
+            class="mt-4 text-xl text-primary my-4"/>
+        <div class="mt-6 gap-2" v-if="data.meta.techStack?.length">
           <Tags :value="data.meta.techStack" />
         </div>
         <div v-if="data.meta.links" class="mt-3">

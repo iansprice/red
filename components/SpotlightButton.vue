@@ -1,7 +1,7 @@
 <template>
   <NuxtLink :to="to" class=" group">
     <button
-        class="relative overflow-hidden rounded-lg hover:bg-white/03 text-white hover:shadow-2xl border border-primary/5 hover:border-transparent hover:scale-105 transition-all duration-250 py-3 px-4"
+        class="no-underline relative overflow-hidden rounded-lg hover:bg-white/03 text-white hover:shadow-2xl border border-primary/10 hover:border-transparent scale-110 hover:scale-105 transition-all duration-250 py-4 px-6"
         @mousemove="handleMouseMove"
         @mouseenter="isHovered = true"
         @mouseleave="isHovered = false"
@@ -19,6 +19,8 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import RainbowButton from "./RainbowButton.vue";
+import AuroraBackground from "./AuroraBackground.vue";
 
 defineProps<{to: any}>()
 
