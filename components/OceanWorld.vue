@@ -1,15 +1,9 @@
 <script setup lang="ts">
-<<<<<<< HEAD
-import {FontLoader} from "three/examples/jsm/loaders/FontLoader";
 import {ref, onUnmounted, onMounted} from 'vue'
-import {TresCanvas, useRenderLoop, extend} from '@tresjs/core'
+import {TresCanvas} from '@tresjs/core'
 import {OrbitControls, Ocean, Sky} from '@tresjs/cientos'
 import * as THREE from 'three'
 import {ExtrudeGeometryOptions} from "three/src/geometries/ExtrudeGeometry";
-import {Vector3} from "three";
-
-// Grid rotation state
-const gridRotation = ref(new THREE.Euler(0, 0, 0))
 
 // Create mountain shape
 const mountainShape = new THREE.Shape()
@@ -36,7 +30,6 @@ const skyRef = ref()
 const sceneRef = ref()
 
 onMounted(() => {
-  setTimeout(() => {
     mounted.value = true
     // Set environment map
     if (sceneRef.value && skyRef.value) {
@@ -44,7 +37,6 @@ onMounted(() => {
       // Enable environment lighting
       sceneRef.value.background = skyRef.value.sky
     }
-  }, 250)
 })
 
 const cameraTarget = new THREE.Vector3(0, 1, 0)
@@ -65,11 +57,7 @@ const orbitRotateSpeed = useLocalStorage('orbitRotateSpeed', .6, {transform: Num
 </script>
 
 <template>
-  <div class="h-screen">
-    <Menu
-        class="z-1 pointer-events-auto"
-        style="z-index: 50; pointer-events: auto; isolation: isolate; position: relative"
-        :links="[{title: 'Work', to:{name:'projects'}}, {title:'Oscilloscope', to:'/demos/oscilloscope'}]"/>
+  <div>
     <UPopover
         class="z-10 pointer-events-auto fixed bottom-4 left-4"
         :ui="{strategy: 'override', overlay: {background: 'red'}}"
@@ -93,7 +81,6 @@ const orbitRotateSpeed = useLocalStorage('orbitRotateSpeed', .6, {transform: Num
               :min-value="0.01"
               :max-value="360"
               :size="120"
-              class="z-10 pointer-events-auto"
           />
           <LogDial
               v-model.number="distance"
@@ -101,7 +88,6 @@ const orbitRotateSpeed = useLocalStorage('orbitRotateSpeed', .6, {transform: Num
               :min-value="0.01"
               :max-value="100000"
               :size="120"
-              class="z-10 pointer-events-auto"
           />
           <LogDial
               v-model.number="elevation"
@@ -109,7 +95,6 @@ const orbitRotateSpeed = useLocalStorage('orbitRotateSpeed', .6, {transform: Num
               :min-value="-50"
               :max-value="200"
               :size="120"
-              class="z-10 pointer-events-auto"
           />
           <LogDial
               v-model.number="mieCoefficient"
@@ -133,7 +118,6 @@ const orbitRotateSpeed = useLocalStorage('orbitRotateSpeed', .6, {transform: Num
               :min-value="0.01"
               :max-value="3600"
               :size="120"
-              class="z-10 pointer-events-auto"
           />
           <LogDial
               v-model.number="turbidity"
@@ -141,7 +125,6 @@ const orbitRotateSpeed = useLocalStorage('orbitRotateSpeed', .6, {transform: Num
               :min-value="0.01"
               :max-value="10000"
               :size="120"
-              class="z-10 pointer-events-auto"
           />
           <LogDial
               v-model.number="orbitRotateSpeed"
@@ -149,7 +132,6 @@ const orbitRotateSpeed = useLocalStorage('orbitRotateSpeed', .6, {transform: Num
               :min-value="-30"
               :max-value="30"
               :size="120"
-              class="z-10 pointer-events-auto"
           />
         </div>
       </template>
@@ -229,14 +211,8 @@ const orbitRotateSpeed = useLocalStorage('orbitRotateSpeed', .6, {transform: Num
       </div>
     </transition>
   </div>
-=======
-</script>
-
-<template>
-  <Menu
-      class="z-50 pointer-events-auto"
-      style="z-index: 50; pointer-events: auto; isolation: isolate; position: relative"
-      :links="[{title: 'Work', to:{name:'projects'}}, {title:'Oscilloscope', to:'/demos/oscilloscope'}]"
-  />
->>>>>>> refs/remotes/origin/main
 </template>
+
+<style scoped>
+
+</style>
