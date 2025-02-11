@@ -2,7 +2,6 @@
   <div
       class="min-h-screen transition-colors duration-300 font-sans text-black dark:text-white bg-gradient-to-bl from-zinc-600 to-sky-600 dark:bg-gradient-to-bl dark:from-zinc-900 dark:to-sky-900"
   >
-<<<<<<< HEAD
     <transition name="zoom">
       <NuxtLink
           class="z-50 pointer-events-auto flex flex-col justify-center items-center scale-75 md:scale-100 hover:backdrop-saturate-110 hover:brightness-75"
@@ -38,20 +37,12 @@
           </g>
         </svg>
       </NuxtLink>
-=======
-    <transition name="fade-slow">
-      <LogoSVG v-if="$route.name !== 'index'"/>
     </transition>
-    <slot name="default"/>
-    <transition name="fade-slow">
-      <OceanWorld v-if="$route.name === '~'"/>
->>>>>>> refs/remotes/origin/main
-    </transition>
+    <NuxtPage/>
   </div>
 </template>
 
 <script setup lang="ts">
-import OceanWorld from "../components/OceanWorld.vue";
 </script>
 
 <style>
