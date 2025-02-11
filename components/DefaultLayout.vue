@@ -2,18 +2,13 @@
   <div
       class="min-h-screen transition-colors duration-300 font-sans text-black dark:text-white bg-gradient-to-bl from-zinc-600 to-sky-600 dark:bg-gradient-to-bl dark:from-zinc-900 dark:to-sky-900"
   >
-    <transition name="fade-slow">
-      <LogoSVG v-if="$route.name !== 'index'"/>
-    </transition>
+    <LogoSVG/>
     <slot name="default"/>
-    <transition name="fade-slow">
-      <OceanWorld v-if="$route.name === '~'"/>
-    </transition>
   </div>
 </template>
 
-<script setup lang="ts">
-import OceanWorld from "../components/OceanWorld.vue";
+<script setup>
+import LogoSVG from "../components/LogoSVG.vue";
 </script>
 
 <style>
