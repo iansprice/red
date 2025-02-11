@@ -1,9 +1,9 @@
 <!-- LogDial.vue -->
 <template>
-  <div :class="['log-dial', {'opacity-50':disabled}]" ref="dialContainer" >
+  <div :class="['log-dial', {'opacity-50':disabled}]" ref="dialContainer">
     <svg
         :width="size"
-        :height="size"
+        :height="size + 20"
         @mousedown="startDrag"
         @touchstart="startDrag"
         class="cursor-pointer"
@@ -35,17 +35,17 @@
             :y1="tick.start.y"
             :x2="tick.end.x"
             :y2="tick.end.y"
-            :stroke="tick.major ? '#4a5568' : '#a0aec0'"
+            :stroke="'#a0aec0'"
             :stroke-width="tick.major ? 2 : 1"
         />
         <text
             v-if="tick.major"
-            :x="tick.label.x"
+            :x="0"
             :y="tick.label.y"
             font-size="12"
             text-anchor="middle"
             alignment-baseline="middle"
-            class="text-foreground"
+            class="text-[#000000]"
         >
           {{ formatValue(tick.value) }}
         </text>
@@ -60,6 +60,23 @@
           stroke="white"
           stroke-width="2"
       />
+
+      <g>
+        <text
+            v-if="label"
+            :x="size * .5"
+            :y="size"
+            font-size="12"
+            text-anchor="middle"
+            alignment-baseline="middle"
+            fill="white"
+            stroke="white"
+            stroke-width="1"
+            class="text-[#000000]"
+        >
+          {{ label }}
+        </text>
+      </g>
     </svg>
 
     <!-- Current value display -->
@@ -74,9 +91,13 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import {ref, computed, onMounted, watch} from 'vue'
 
 const props = defineProps({
+  label: {
+    type: String,
+    require: false,
+  },
   modelValue: {
     type: Number,
     required: true

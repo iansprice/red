@@ -3,7 +3,10 @@
       class="min-h-screen transition-colors duration-300 font-sans text-black dark:text-white bg-gradient-to-bl from-zinc-600 to-sky-600 dark:bg-gradient-to-bl dark:from-zinc-900 dark:to-sky-900"
   >
     <transition name="zoom">
-      <NuxtLink class="flex flex-col justify-center items-center scale-75 md:scale-100" v-if="$route.name !== 'index'" :to="{name:'~'}">
+      <NuxtLink
+          class="z-50 pointer-events-auto flex flex-col justify-center items-center scale-75 md:scale-100 hover:backdrop-saturate-110 hover:brightness-75"
+          v-if="$route.name !== 'index'" :to="{name:'~'}"
+          style="z-index: 50; pointer-events: auto; isolation: isolate; position: relative;">
         <svg class="w-full max-w-[460px]" viewBox="0 0 460 40">
           <defs>
             <DisplacementCircles id="dis1"/>
