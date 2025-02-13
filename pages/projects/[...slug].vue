@@ -49,10 +49,10 @@ const descAnimDone = ref(false)
                 @done="descAnimDone=true"
             />
           </div>
-          <div class="my-1 gap-2" v-if="data.meta.techStack?.length">
+          <div class="my-1 gap-2" v-if="data.techStack?.length">
             <TextGenerateEffect
                 class="w-full !max-w-[65ch]"
-                :words="data.meta.techStack.join(' ')"
+                :words="data.techStack.join(' ')"
                 :active="titleAnimDone"
                 :delay="1000"
             >
@@ -61,24 +61,28 @@ const descAnimDone = ref(false)
               </template>
             </TextGenerateEffect>
           </div>
-          <div v-if="data.meta.links" class="my-3 w-full !max-w-[65ch]">
+          <div v-if="data.links" class="my-3 w-full !max-w-[65ch]">
             <SpotlightButton
-                v-if="data.meta.links.live"
-                :to="data.meta.links.live"
+                v-if="data.links.live"
+                :to="data.links.live"
                 target="_blank"
             >
               View Live Site
               <Icon name="times"/>
             </SpotlightButton>
             <SpotlightButton
-                v-if="data.meta.links.github"
-                :to="data.meta.links.github"
+                v-if="data.links.github"
+                :to="data.links.github"
             >
               View on GitHub
             </SpotlightButton>
           </div>
         </Prose>
       </div>
+      <Prose>
+
+      <Divider/>
+      </Prose>
       <ContentRenderer :value="data" :class="proseClasses" prose/>
       <div class="flex justify-center items-center">
         <SpotlightButton :to="{name: 'projects'}" @click="backButtonClicked=true" class="mt-12">
