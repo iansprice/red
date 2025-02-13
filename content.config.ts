@@ -13,7 +13,7 @@ export default defineContentConfig({
     projects: defineCollection({
       type: 'page',
       source: 'projects/*.md',
-      schema: {
+      schema: z.object({
         techStack: z.array(z.string()).optional(),
         links: z.object({
           live: z.string().optional(),
@@ -21,7 +21,7 @@ export default defineContentConfig({
         }).optional(),
         logo: z.string(),
         role: z.string()
-      }
+      })
     })
   }
 })
