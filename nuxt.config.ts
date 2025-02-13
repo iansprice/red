@@ -17,6 +17,9 @@ export default defineNuxtConfig({
             ]
         },
     },
+    build: {
+        transpile: ['vue3-zoomer']
+    },
     css: [
         '@/assets/css/animations.css',
         '@/assets/css/fonts.css',
@@ -57,5 +60,10 @@ export default defineNuxtConfig({
         global: false,
         primary: 'blue',
         gray: 'cool'
+    },
+    vite: {
+        optimizeDeps: {
+            include: ['vue3-zoomer']
+        }
     }
 })

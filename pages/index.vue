@@ -2,8 +2,6 @@
   <div id="zoom-wrapper" :class="['fixed top-0 transition-all duration-1000 ease-out', {'!bg-background': stage==='inside-planet'}]">
     <svg width="100vw" height="100vh" >
       <defs>
-        <DisplacementCircles id="dis1"/>
-
         <!-- Grid pattern -->
         <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
           <path d="M 48 0 L 0 0 0 48" fill="none" stroke="white" stroke-width="3.5">

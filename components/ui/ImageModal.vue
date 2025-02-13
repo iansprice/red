@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ZoomImg } from "vue3-zoomer";
+import {ZoomImg} from "vue3-zoomer";
 
 interface Props {
   src: string
@@ -42,12 +42,14 @@ const open = defineModel('open', {default: false})
 
         <!-- Modal Body -->
         <div class="flex justify-center max-h-[90vh] overflow-y-scroll" @click="open = false">
-          <ZoomImg
-              :src="src"
-              :alt="alt"
-              class="max-w-full max-h-[80vh] w-auto h-full"
-              @click.stop
-          />
+          <ClientOnly>
+            <ZoomImg
+                :src="src"
+                :alt="alt"
+                class="max-w-full max-h-[80vh] w-auto h-full"
+                @click.stop
+            />
+          </ClientOnly>
         </div>
 
         <!-- Modal Footer -->
