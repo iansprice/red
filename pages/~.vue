@@ -26,7 +26,7 @@ const extrudeSettings: ExtrudeGeometryOptions = {
   bevelSize: 0.02,
 }
 
-const mounted = ref(false)
+const mounted = useState('mounted', () => false)
 
 onMounted(() => {
   setTimeout(() => {

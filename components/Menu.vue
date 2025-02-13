@@ -9,7 +9,7 @@ export type Link = {
 withDefaults(
     defineProps<{
       title?: string,
-      links: Link[]
+      links?: Link[]
     }>(), {
       links: []
     }

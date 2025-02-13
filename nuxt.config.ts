@@ -63,7 +63,7 @@ export default defineNuxtConfig({
     },
     vite: {
         optimizeDeps: {
-            include: ['vue3-zoomer']
+            include: ['vue', 'vue3-zoomer']
         }
     }
 })
