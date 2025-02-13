@@ -35,52 +35,54 @@ function logScale(value: number, min: number = 0, max: number = 100) {
           :class="['mx-3 mt-1', {'text-sage-100': !modelValue.on}]"
           v-model="modelValue.on"
       />
-      <label for="on">Enabled</label>
+      <label for="on">Enable oscillator</label>
     </div>
 
-    <div>
-      <label for="waveform">Waveform</label>
-      <USelectMenu id="waveform" :disabled="!modelValue.on" v-model="modelValue.trigonometricFunction" :options="options"/>
-    </div>
-
-    <div class="flex">
-      <div class="flex flex-col">
-        <LogDial
-            reverse
-            v-model:model-value="modelValue.cycleLengthSeconds"
-            :max-value="modelValue.max"
-            :min-value="modelValue.min"
-            :disabled="!modelValue.on"
-            :size="120"
-            :precision="2"
-        />
-        <label for="oscillation">Frequency</label>
-        <div>{{ (1/modelValue.cycleLengthSeconds).toFixed(3) }}hz</div>
-      </div>
-      <div class="flex flex-col">
-        <LogDial
-            :disabled="!modelValue.on"
-            v-model.number="modelValue.amplitudeRatio"
-            :min-value="0.001"
-            :max-value="1"
-            :size="120"
-            id="amplitudeRatio"
-        />
-        <label for="amplitudeRatio">Amplitude</label>
-        <div>{{ modelValue.amplitudeRatio.toFixed(2) }}</div>
+    <div :class="['transition-opacity duration-100',{'opacity-50':!modelValue.on}]">
+      <div>
+        <label for="waveform">Waveform</label>
+        <USelectMenu id="waveform" :disabled="!modelValue.on" v-model="modelValue.trigonometricFunction"
+                     :options="options"/>
       </div>
 
-      <div class="flex flex-col">
-        <LogDial
-            :disabled="!modelValue.on"
-            v-model.number="modelValue.skew"
-            :min-value="-1"
-            :max-value="1"
-            :size="120"
-        />
-        <label for="skew">Skew amount</label>
-      </div>
+      <div class="flex">
+        <div class="flex flex-col">
+          <LogDial
+              reverse
+              v-model:model-value="modelValue.cycleLengthSeconds"
+              :max-value="modelValue.max"
+              :min-value="modelValue.min"
+              :disabled="!modelValue.on"
+              :size="120"
+              :precision="2"
+          />
+          <label for="oscillation">Frequency</label>
+          <div>{{ (1 / modelValue.cycleLengthSeconds).toFixed(3) }}hz</div>
+        </div>
+        <div class="flex flex-col">
+          <LogDial
+              :disabled="!modelValue.on"
+              v-model.number="modelValue.amplitudeRatio"
+              :min-value="0.001"
+              :max-value="1"
+              :size="120"
+              id="amplitudeRatio"
+          />
+          <label for="amplitudeRatio">Amplitude</label>
+          <div>{{ modelValue.amplitudeRatio.toFixed(2) }}</div>
+        </div>
 
+        <div class="flex flex-col">
+          <LogDial
+              :disabled="!modelValue.on"
+              v-model.number="modelValue.skew"
+              :min-value="-1"
+              :max-value="1"
+              :size="120"
+          />
+          <label for="skew">Skew amount</label>
+        </div>
+      </div>
     </div>
 
   </div>

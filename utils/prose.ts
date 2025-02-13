@@ -1,0 +1,1 @@
+export const proseClasses = 'my-6 prose md:prose-lg lg:prose-xl prose-stone dark:prose-invert min-w-prose mx-4'

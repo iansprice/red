@@ -1,14 +1,16 @@
 <template>
   <div :class="cn('leading-snug tracking-wide', props.class)">
     <Component :is="tag" ref="scope">
-      <span
+      <div
           v-for="(word, idx) in wordsArray"
           :key="word + idx"
-          class="inline-block"
+          class="inline-block spans"
           :style="spanStyle"
       >
-        {{ word }}&nbsp;
-      </span>
+        <slot name="word" :word="word" :index="idx">
+          {{ word }}&nbsp;
+        </slot>
+      </div>
     </Component>
   </div>
 </template>
@@ -49,7 +51,7 @@ onMounted(() => {
   watch(active,
       (a) => {
         if (a && scope.value) {
-          const spans = (scope.value as HTMLElement).querySelectorAll("span");
+          const spans = (scope.value as HTMLElement).querySelectorAll(".spans");
 
           setTimeout(() => {
             spans.forEach((span: HTMLElement, index: number) => {

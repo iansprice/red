@@ -22,7 +22,7 @@ import { ref, computed } from 'vue'
 import RainbowButton from "./RainbowButton.vue";
 import AuroraBackground from "./AuroraBackground.vue";
 
-defineProps<{to: any}>()
+defineProps<{to?: any, class?: string}>()
 
 const mousePosition = ref({ x: 0, y: 0 })
 const isHovered = ref(false)
@@ -38,7 +38,7 @@ const handleMouseMove = (e) => {
 }
 
 const spotlightStyle = computed(() => ({
-  opacity: isHovered.value ? 0.15 : 0,
+  opacity: isHovered.value ? 0.25 : 0,
   background: `radial-gradient(200px circle at ${mousePosition.value.x}px ${mousePosition.value.y}px, rgba(255,255,255,0.6), transparent 70%)`,
 }))
 </script>

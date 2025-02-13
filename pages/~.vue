@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import {FontLoader} from "three/examples/jsm/loaders/FontLoader";
-import {ref, onUnmounted, onMounted} from 'vue'
-import {TresCanvas, useRenderLoop, extend} from '@tresjs/core'
+
+import {ref, onUnmounted, onMounted, shallowRef} from 'vue'
+import {TresCanvas, } from '@tresjs/core'
+import { EffectComposer, UnrealBloom } from '@tresjs/post-processing'
 import {OrbitControls, Ocean, Sky} from '@tresjs/cientos'
 import * as THREE from 'three'
 import {ExtrudeGeometryOptions} from "three/src/geometries/ExtrudeGeometry";
-import {Vector3} from "three";
 
-// Grid rotation state
-const gridRotation = ref(new THREE.Euler(0, 0, 0))
-
-// Create mountain shape
 const mountainShape = new THREE.Shape()
 mountainShape.moveTo(-1, 0)
 mountainShape.lineTo(-3, 0)
@@ -31,18 +27,11 @@ const extrudeSettings: ExtrudeGeometryOptions = {
 }
 
 const mounted = ref(false)
-const skyRef = ref()
-const sceneRef = ref()
 
 onMounted(() => {
   setTimeout(() => {
     mounted.value = true
     // Set environment map
-    if (sceneRef.value && skyRef.value) {
-      sceneRef.value.environment = skyRef.value.sky
-      // Enable environment lighting
-      sceneRef.value.background = skyRef.value.sky
-    }
   }, 250)
 })
 
@@ -53,113 +42,100 @@ onUnmounted(() => {
   stop()
 })
 
-const azimuth = useLocalStorage('azimuth', 2, {transform: Number})
-const distance = useLocalStorage('distance', 15, {transform: Number})
-const elevation = useLocalStorage('elevation', 0.5, {transform: Number})  // Increased elevation for higher sun position
-const mieCoefficient = useLocalStorage('mieCoefficient', 0.002, {transform: Number})  // Reduced for less atmospheric scattering
-const mieDirectionalG = useLocalStorage('mieDirectionalG', 0.9, {transform: Number})  // Increased for sharper sun appearance
-const rayleigh = useLocalStorage('rayleigh', 1, {transform: Number})  // Reduced for less atmospheric scattering
-const turbidity = useLocalStorage('turbidity', 2, {transform: Number})  // Reduced for clearer sky
-const orbitRotateSpeed = useLocalStorage('orbitRotateSpeed', .6, {transform: Number})
+const azimuth = useLocalStorage('azimuth', 141.6, {transform: Number})
+const distance = useLocalStorage('distance', 625000, {transform: Number})
+const elevation = useLocalStorage('elevation', -.2, {transform: Number})  // Increased elevation for higher sun position
+const mieCoefficient = useLocalStorage('mieCoefficient', 3.6, {transform: Number})  // Reduced for less atmospheric scattering
+const mieDirectionalG = useLocalStorage('mieDirectionalG', 0.04, {transform: Number})  // Increased for sharper sun appearance
+const rayleigh = useLocalStorage('rayleigh', 12.7, {transform: Number})  // Reduced for less atmospheric scattering
+const turbidity = useLocalStorage('turbidity', .16, {transform: Number})  // Reduced for clearer sky
+const orbitRotateSpeed = useLocalStorage('orbitRotateSpeed', .16, {transform: Number})
+
+const skyRef = shallowRef(undefined)
 </script>
 
 <template>
-  <div class="h-screen">
+  <div>
     <Menu
         class="z-1 pointer-events-auto"
         style="z-index: 50; pointer-events: auto; isolation: isolate; position: relative"
-        :links="[{title: 'Work', to:{name:'projects'}}, {title:'Oscilloscope', to:'/demos/oscilloscope'}]"/>
-    <UPopover
-        class="z-10 pointer-events-auto fixed bottom-4 left-4"
-        :ui="{strategy: 'override', overlay: {background: 'red'}}"
-    >
-      <template #default="{open}">
-        <UButton
-            :class="['z-10 pointer-events-auto']"
-            color="white"
-            label="Controls"
-        >
-          <template #trailing="{}">
-            <UIcon name="i-heroicons-chevron-up-20-solid" :class="{'rotate-180': open}"/>
-          </template>
-        </UButton>
-      </template>
-      <template #panel="{close}">
-        <div class="flex flex-wrap bg-transparent z-10 pointer-events-auto">
-          <LogDial
-              v-model.number="azimuth"
-              label="Azimuth"
-              :min-value="0.01"
-              :max-value="360"
-              :size="120"
-              class="z-10 pointer-events-auto"
-          />
-          <LogDial
-              v-model.number="distance"
-              label="Distance (box)"
-              :min-value="0.01"
-              :max-value="100000"
-              :size="120"
-              class="z-10 pointer-events-auto"
-          />
-          <LogDial
-              v-model.number="elevation"
-              label="Elevation"
-              :min-value="-50"
-              :max-value="200"
-              :size="120"
-              class="z-10 pointer-events-auto"
-          />
-          <LogDial
-              v-model.number="mieCoefficient"
-              label="MIE coefficient"
-              :min-value="0.0001"
-              :max-value="10"
-              :size="120"
-              class=""
-          />
-          <LogDial
-              v-model.number="mieDirectionalG"
-              label="MIE Directional G"
-              :min-value="0.01"
-              :max-value="360"
-              :size="120"
-              class=""
-          />
-          <LogDial
-              v-model.number="rayleigh"
-              label="Rayleigh"
-              :min-value="0.01"
-              :max-value="3600"
-              :size="120"
-              class="z-10 pointer-events-auto"
-          />
-          <LogDial
-              v-model.number="turbidity"
-              label="Turbidity"
-              :min-value="0.01"
-              :max-value="10000"
-              :size="120"
-              class="z-10 pointer-events-auto"
-          />
-          <LogDial
-              v-model.number="orbitRotateSpeed"
-              label="Rotate speed"
-              :min-value="-30"
-              :max-value="30"
-              :size="120"
-              class="z-10 pointer-events-auto"
-          />
-        </div>
-      </template>
-    </UPopover>
+        :links="[{title: 'Work', to:{name:'projects'}}, {title:'Demos', to:'/demos'}]"/>
+    <ControlsPopover>
+      <LogDial
+          v-model.number="azimuth"
+          label="Azimuth"
+          :min-value="0.01"
+          :max-value="360"
+          :size="120"
+          class="z-10 pointer-events-auto"
+      />
+      <LogDial
+          v-model.number="distance"
+          label="Distance (box)"
+          :min-value="0.01"
+          :max-value="100000"
+          :size="120"
+          class="z-10 pointer-events-auto"
+      />
+      <LogDial
+          v-model.number="elevation"
+          label="Elevation"
+          :min-value="-50"
+          :max-value="200"
+          :size="120"
+          class="z-10 pointer-events-auto"
+      />
+      <LogDial
+          v-model.number="mieCoefficient"
+          label="MIE coefficient"
+          :min-value="0.0001"
+          :max-value="10"
+          :size="120"
+          class=""
+      />
+      <LogDial
+          v-model.number="mieDirectionalG"
+          label="MIE Directional G"
+          :min-value="0.01"
+          :max-value="360"
+          :size="120"
+          class=""
+      />
+      <LogDial
+          v-model.number="rayleigh"
+          label="Rayleigh"
+          :min-value="0.01"
+          :max-value="3600"
+          :size="120"
+          class="z-10 pointer-events-auto"
+      />
+      <LogDial
+          v-model.number="turbidity"
+          label="Turbidity"
+          :min-value="0.01"
+          :max-value="10000"
+          :size="120"
+          class="z-10 pointer-events-auto"
+      />
+      <LogDial
+          v-model.number="orbitRotateSpeed"
+          label="Rotate speed"
+          :min-value="-30"
+          :max-value="30"
+          :size="120"
+          class="z-10 pointer-events-auto"
+      />
+    </ControlsPopover>
     <transition name="fade-slow">
       <div
-          class="h-[100vh] w-screen absolute top-0"
+          class="h-screen w-screen absolute top-0"
           v-show="mounted"
       >
-        <TresCanvas style="z-index: 1">
-          <TresScene ref="sceneRef">
+        <TresCanvas
+            window-size
+            shadows
+            style="z-index: 1"
+        >
             <TresPerspectiveCamera
                 :zoom="0.5"
                 :position="[2, 1, 20]"
@@ -182,7 +158,8 @@ const orbitRotateSpeed = useLocalStorage('orbitRotateSpeed', .6, {transform: Num
                 :rayleigh="rayleigh"
                 :turbidity="turbidity"
             />
-            <!-- Mountains with updated material -->
+            <primitive v-if="skyRef" :object="skyRef" />
+
             <TresMesh
                 :position="[0, 1.5, 0]"
                 :rotation="[0, 0, 0]"
@@ -196,19 +173,22 @@ const orbitRotateSpeed = useLocalStorage('orbitRotateSpeed', .6, {transform: Num
                   :color="0x8B0000"
                   :metalness="0.9"
                   :roughness="0.1"
-                  :envMapIntensity="5"
+                  :envMapIntensity="35"
+                  v-if="skyRef"
+                  :envMap="skyRef?.background"
                   :side="THREE.DoubleSide"
               />
             </TresMesh>
-            <Smoke/>
-
             <Suspense>
               <Ocean
-                  :distortion-scale="1"
                   :texture-width="5096"
                   :texture-height="5096"
               />
             </Suspense>
+
+          <EffectComposer>
+            <UnrealBloom :radius="0.5" :strength="1.5" :threshold="0.8" />
+          </EffectComposer>
 
             <OrbitControls
                 :autoRotate="autoRotating"
@@ -223,7 +203,6 @@ const orbitRotateSpeed = useLocalStorage('orbitRotateSpeed', .6, {transform: Num
                 :maxPolarAngle="Math.PI / 2"
                 :target="cameraTarget"
             />
-          </TresScene>
         </TresCanvas>
       </div>
     </transition>

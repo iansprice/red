@@ -5,7 +5,7 @@
 <template>
   <Menu
       title="Demos"
-      :links="[{title:'Oscilloscope', to:'/demos/oscilloscope'}]"
+      :links="[{title:'Op-art', to:'/demos/opart'},{title:'Oscilloscope', to:'/demos/oscilloscope'}]"
   />
 </template>
 

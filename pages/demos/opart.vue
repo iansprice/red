@@ -4,7 +4,7 @@ import {useRouteQuery} from "@vueuse/router";
 
 const dark = useDark()
 const group: Readonly<ShallowRef<SVGGElement>> = useTemplateRef("group")
-const fillColor = ref(dark.value ? '#FFFFFF' : '#000000')
+const fillColor = ref('#FFFFFF')
 const delayRaw = ref(1)
 const delay = computed(() => logScale(delayRaw.value))
 const zoom = ref(100)
@@ -78,78 +78,49 @@ watch(
     {immediate: true}
 )
 
-const route = useRoute()
 const router = useRouter()
-
-const showOscilloscope = useRouteQuery('display', '', {transform: Boolean})
-const toggleOscilloscope = () => {
-  router.push({query: {display: showOscilloscope.value ? '' : 'oscilloscope'}})
-}
-
-const oscillatorTimeWindow = ref(5)
 </script>
 
 <template>
   <div>
     <div>
-      <div class="flex flex-col">
+      <ControlsPopover>
         <div class="flex flex-col px-4">
-          <div>
-            <label for="delay">Animation staggering (ms)</label>
+          <div class="px-4 py-3">
+            <div>
+              <label for="delay">Animation staggering (ms)</label>
+            </div>
+            <URange
+                v-model.number="delayRaw"
+                :disabled="oscillateArgs.on"
+                id="delay"
+                :max="100"
+                :min="0"
+                :step=".01"
+            />
+            <span>{{ delay.toFixed(1) }}ms delay</span>
           </div>
-          <URange
-              v-model.number="delayRaw"
-              :disabled="oscillateArgs.on"
-              id="delay"
-              :max="100"
-              :min="0"
-              :step=".01"
-          />
-          <span>{{ delay.toFixed(1) }}ms delay</span>
+          <div class="px-4 py-3">
+            <div>
+              <label for="zoom">Zoom</label>
+            </div>
+            <URange v-model.number="zoom" id="zoom" :step="1" :min="50" :max="150"/>
+            <p>{{ zoom }}%</p>
+          </div>
+          <div class="px-4">
+            <div>
+              <label for="color">Color</label>
+            </div>
+            <input type="color" v-model="fillColor" id="color"/>
+          </div>
         </div>
         <div class="min-w-24 px-4">
           <OscillateArgsForm class="flex flex-col " v-model="oscillateArgs"/>
         </div>
-        <div class="px-4">
-          <div>
-            <label for="color">Color</label>
-          </div>
-          <input type="color" v-model="fillColor" id="color"/>
-        </div>
-        <div class="px-4">
-          <div>
-            <label for="zoom">Zoom</label>
-          </div>
-          <URange v-model.number="zoom" id="zoom" :step="1" :min="10" :max="1000"/>
-          <p>{{ zoom }}%</p>
-        </div>
-        <div class="flex justify-center">
-          <UToggle
-              :model-value="showOscilloscope"
-              @update:model-value="toggleOscilloscope"
-          />
-        </div>
-      </div>
+      </ControlsPopover>
     </div>
-    <Oscilloscope
-        v-if="route.query.display==='oscilloscope'"
-        :value="delayRaw"
-        :center-phase="oscillateArgs.centerPhase"
-        :min="oscillateArgs.min"
-        :max="oscillateArgs.max"
-        :stroke="fillColor"
-        :time-window="oscillatorTimeWindow"
-        :max-points="20000"
-    />
-    <URange
-        v-model.number="oscillatorTimeWindow"
-        :min="0.004"
-        :max="100"
-        :step="0.001"
-    />
 
     <div
-        v-if="route.query.display!=='oscilloscope'"
         class="overflow-x-hidden overflow-y-hidden flex flex-row justify-center items-center">
       <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
            width="1161.000000pt" height="1036" viewBox="0 0 1161.000000 1036.000000"

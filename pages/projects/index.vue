@@ -1,17 +1,18 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12">
-    <div class="text-center">
-      <h1 class="text-3xl">Work</h1>
-    </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <Menu title="Work" :links="[]"/>
     <div class="my-6 gap-6 flex flex-wrap self-center justify-center items-center align-middle">
-      <Project
+      <NuxtLink
           v-for="(project, index) in projects"
           :key="project.path"
-          :project="project"
-          :index="index"
-          class="flex-basis-1/2"
-          @click="handleProjectClick(project)"
-      />
+          :to="project.path"
+      >
+        <Project
+            :project="project"
+            :index="index"
+            class="flex-basis-1/2"
+        />
+      </NuxtLink>
     </div>
     <div class="my-6 flex justify-center items-center">
     <SpotlightButton :to="{name:'~'}" >

@@ -1,6 +1,5 @@
-<!-- LogDial.vue -->
 <template>
-  <div :class="['log-dial', {'opacity-50':disabled}]" ref="dialContainer">
+  <div :class="['log-dial', {'!opacity-50':disabled}]" ref="dialContainer">
     <svg
         :width="size"
         :height="size + 20"
@@ -61,7 +60,7 @@
           stroke-width="2"
       />
 
-      <g>
+      <g class="w-[120px]">
         <text
             v-if="label"
             :x="size * .5"
@@ -72,7 +71,7 @@
             fill="white"
             stroke="white"
             stroke-width="1"
-            class="text-[#000000]"
+            :class="['text-[#000000] text-center', {'opacity-50':disabled}]"
         >
           {{ label }}
         </text>
@@ -81,7 +80,7 @@
 
     <!-- Current value display -->
     <div
-        class="value-display cursor-pointer text-foreground"
+        :class="['value-display cursor-pointer text-foreground',{'!opacity-50':disabled}]"
         @mousedown="startDrag"
         @touchstart="startDrag"
     >

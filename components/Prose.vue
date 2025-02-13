@@ -1,11 +1,9 @@
-<script>
-export default {
-  name: "Prose"
-}
+<script setup lang="ts">
+import {proseClasses} from "../utils/prose";
 </script>
 
 <template>
-  <article class="prose md:prose-lg lg:prose-xl prose-stone dark:prose-invert max-w-full">
+  <article :class="[proseClasses]">
     <slot/>
   </article>
 </template>

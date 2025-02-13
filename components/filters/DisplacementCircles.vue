@@ -1,7 +1,21 @@
 <script setup lang="ts">
-  defineProps<{
-    id: string
-  }>()
+  import useOscillate from "../../composables/useOscillate";
+
+  const props = withDefaults(defineProps<{
+    id: string,
+    it?: number,
+    seed?: number,
+    octaves?: number,
+    in1: number,
+    in2: number,
+    in3: number,
+  }>(), {
+    it: 80,
+    seed: 100,
+    octaves:1,
+  })
+
+
 </script>
 
 <template>
@@ -9,37 +23,27 @@
     <!-- First layer - larger circles -->
     <feTurbulence
         type="fractalNoise"
-        baseFrequency="0.0025 0.0025"
+        :baseFrequency="`${in1} ${in2}`"
         numOctaves="1"
-        seed="1"
+        seed=".01"
         result="noise1">
-      <animate
-          attributeName="baseFrequency"
-          values="0.0001 0.0025;0.0004 0.0003"
-          dur="110s"
-          repeatCount="indefinite"/>
     </feTurbulence>
 
     <feComponentTransfer in="noise1" result="circles1">
-      <feFuncA type="discrete" tableValues="0 0.5 1 0"/>
+      <feFuncA type="discrete" :tableValues="`${in1} ${in3} 1 ${in2}`"/>
     </feComponentTransfer>
 
     <!-- Second layer - medium circles with different phase -->
     <feTurbulence
         type="fractalNoise"
-        baseFrequency="0.004 0.004"
+        :baseFrequency="`${in2} ${in1}`"
         numOctaves="1"
-        seed="2"
+        :seed="seed"
         result="noise2">
-      <animate
-          attributeName="baseFrequency"
-          values="0.004 0.004;0.01 0.1"
-          dur="120s"
-          repeatCount="indefinite"/>
     </feTurbulence>
 
     <feComponentTransfer in="noise2" result="circles2">
-      <feFuncR type="discrete" tableValues="1 0.5 0 1"/>
+      <feFuncR type="discrete" :tableValues="`1 0.5 ${in3} 1`"/>
       <feFuncG type="discrete" tableValues="1 0.5 0 1"/>
       <feFuncB type="discrete" tableValues="1 0.5 0 1"/>
     </feComponentTransfer>
@@ -62,7 +66,7 @@
     <feDisplacementMap
         in="SourceGraphic"
         in2="sharpenedCircles"
-        scale="18"
+        :scale="it"
         xChannelSelector="R"
         yChannelSelector="G"/>
   </filter>
