@@ -4,7 +4,7 @@ import {defineNuxtConfig} from "nuxt/config";
 export default defineNuxtConfig({
     compatibilityDate: '2024-11-26',
     alias: {
-        "~": ".",
+        "~": "/",
     },
     app: {
         pageTransition: {name: 'fade', mode: 'out-in'},
@@ -30,12 +30,12 @@ export default defineNuxtConfig({
         payloadExtraction: false,
     },
     modules: [
-        '@nuxt/content',
-        '@nuxt/ui',
-        '@nuxtjs/tailwindcss',
-        '@nuxtjs/color-mode',
-        '@vueuse/nuxt',
-        '@tresjs/nuxt',
+      '@nuxt/content',
+      '@nuxt/ui',
+      '@nuxtjs/tailwindcss',
+      '@nuxtjs/color-mode',
+      '@vueuse/nuxt',
+      '@tresjs/nuxt',
     ],
     nitro: {
         prerender: {

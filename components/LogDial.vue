@@ -26,6 +26,14 @@
           stroke-width="4"
           stroke-linecap="round"
       />
+      <path
+          v-if="typeof subValue !== 'undefined'"
+          :d="subArcPath"
+          fill="none"
+          stroke="red"
+          stroke-width="3"
+          stroke-linecap="round"
+      />
 
       <!-- Tick marks -->
       <g v-for="tick in tickMarks" :key="tick.angle">
@@ -44,9 +52,9 @@
             font-size="12"
             text-anchor="middle"
             alignment-baseline="middle"
-            class="text-[#000000]"
+            fill="white"
         >
-          {{ formatValue(tick.value) }}
+
         </text>
       </g>
 
@@ -75,16 +83,31 @@
         >
           {{ label }}
         </text>
+        <text
+            v-if="typeof subValue !== 'undefined'"
+            :x="size * 0.5"
+            :y="size * 0.75"
+            font-size="12"
+            text-anchor="middle"
+            alignment-baseline="middle"
+            fill="red"
+            stroke="red"
+            stroke-width="0.5"
+        >
+          {{ subValue.toFixed(2) }}
+        </text>
       </g>
     </svg>
 
     <!-- Current value display -->
     <div
-        :class="['value-display cursor-pointer text-foreground',{'!opacity-50':disabled}]"
+        :class="['text-center value-display cursor-pointer text-foreground',{'!opacity-50':disabled}]"
         @mousedown="startDrag"
         @touchstart="startDrag"
     >
-      {{ formatValue(displayValue) }}
+      <div>
+        {{ formatValue(displayValue) }}
+      </div>
     </div>
   </div>
 </template>
@@ -112,6 +135,10 @@ const props = defineProps({
   size: {
     type: Number,
     default: 200
+  },
+  subValue: {
+    type: Number,
+    required: false,
   },
   precision: {
     type: Number,
@@ -149,13 +176,14 @@ const center = computed(() => props.size / 2)
 const radius = computed(() => (props.size / 2) * 0.8)
 
 // Position calculations
-const polarToCartesian = (angle) => {
-  const angleRad = (angle * Math.PI) / 180
+const polarToCartesian = (angle, customRadius = radius.value) => {
+  const angleRad = (angle * Math.PI) / 180;
   return {
-    x: center.value + radius.value * Math.cos(angleRad),
-    y: center.value + radius.value * Math.sin(angleRad)
-  }
-}
+    x: center.value + customRadius * Math.cos(angleRad),
+    y: center.value + customRadius * Math.sin(angleRad),
+  };
+};
+
 
 const knobPosition = computed(() => polarToCartesian(angle.value))
 
@@ -166,6 +194,29 @@ const arcPath = computed(() => {
 
   return `M ${start.x} ${start.y} A ${radius.value} ${radius.value} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`
 })
+
+
+const subArcPath = computed(() => {
+  if (typeof props.subValue === 'undefined') return ''; // No path if subValue is undefined
+
+  const fraction = logToLinear(props.subValue);  // Get linear fraction for the subValue
+  const subAngle = fractionToAngle(fraction);   // Convert that fraction to an angle
+
+  const subRadius = radius.value * 0.85;  // Inner radius for the arc
+
+  // Handle negative values - we need to flip the direction
+  const adjustedAngle = props.subValue < 0 ? subAngle - 180 : subAngle; // Reverse direction for negative
+
+  // Get the start and end points using the adjusted angle
+  const start = polarToCartesian(START_ANGLE, subRadius);
+  const end = polarToCartesian(adjustedAngle, subRadius);
+
+  const largeArcFlag = Math.abs(adjustedAngle - START_ANGLE) <= 180 ? 0 : 1;
+
+  return `M ${start.x} ${start.y} A ${subRadius} ${subRadius} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`;
+});
+
+
 
 // Value conversion functions
 const linearToLog = (fraction) => {

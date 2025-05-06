@@ -15,6 +15,9 @@
     <div class="pb-12">
       <NuxtPage/>
     </div>
+    <div v-if="false">
+      <NavigationScroller/>
+    </div>
   </div>
 </template>
 

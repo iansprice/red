@@ -1,5 +1,5 @@
 <template>
-  <div :class="cn('flex h-96 gap-2 my-6 not-prose relative -mx-[50vw] left-[50%] right-[50%] w-screen', props.class)">
+  <div :class="cn('flex h-96 gap-2 my-24 not-prose relative -mx-[50vw] left-[50%] right-[50%] w-screen', props.class)">
     <div
         v-for="image in images"
         :key="image.src"

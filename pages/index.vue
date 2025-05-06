@@ -1,3 +1,4 @@
+
 <template>
   <div id="zoom-wrapper" :class="['fixed top-0 transition-all duration-1000 ease-out', {'!bg-background': stage==='inside-planet'}]">
     <svg width="100vw" height="100vh" >

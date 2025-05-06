@@ -6,6 +6,9 @@ import { EffectComposer, UnrealBloom } from '@tresjs/post-processing'
 import {OrbitControls, Ocean, Sky} from '@tresjs/cientos'
 import * as THREE from 'three'
 import {ExtrudeGeometryOptions} from "three/src/geometries/ExtrudeGeometry";
+import {Vector3} from "three";
+import useOscillate from "../composables/useOscillate";
+import SpinningText from "../components/ui/SpinningText.vue";
 
 const mountainShape = new THREE.Shape()
 mountainShape.moveTo(-1, 0)
@@ -50,6 +53,16 @@ const mieDirectionalG = useLocalStorage('mieDirectionalG', 0.04, {transform: Num
 const rayleigh = useLocalStorage('rayleigh', 12.7, {transform: Number})  // Reduced for less atmospheric scattering
 const turbidity = useLocalStorage('turbidity', .16, {transform: Number})  // Reduced for clearer sky
 const orbitRotateSpeed = useLocalStorage('orbitRotateSpeed', .16, {transform: Number})
+
+// const {assignValueOnLoop} = useOscillate({
+//   min: 0,
+//   max: 500,
+//   amplitudeRatio: .3,
+//   skew:.5,
+//   cycleLengthSeconds: 10,
+//   trigonometricFunction: 'Sin',
+// })
+// assignValueOnLoop(rayleigh, rayleighOut)
 
 const skyRef = shallowRef(undefined)
 </script>
@@ -126,6 +139,15 @@ const skyRef = shallowRef(undefined)
           class="z-10 pointer-events-auto"
       />
     </ControlsPopover>
+    <div class="absolute flex justify-around items-center h-screen w-screen -top-8 pointer-events-none">
+      <LazyUiSpinningText
+          text="BRINGING SOUL BACK TO TECH *"
+          class="z-50 text-white text-md font-extrabold mix-blend-exclusion font-mono"
+          :radius="10"
+          :duration="20"
+          reverse
+      />
+    </div>
     <transition name="fade-slow">
       <div
           class="h-screen w-screen absolute top-0"
@@ -141,7 +163,12 @@ const skyRef = shallowRef(undefined)
                 :position="[2, 1, 20]"
                 :lookAt="[-15, -4, -2]"
             />
-            <TresAmbientLight :intensity="20"/>
+            <TresDirectionalLight
+                :position="[5, 5, 5]"
+                :intensity="5"
+                :castShadow="true"
+            />
+            <TresAmbientLight :intensity="50"/>
             <Stars
                 :count="60"
                 :depth="800"
@@ -173,7 +200,7 @@ const skyRef = shallowRef(undefined)
                   :color="0x8B0000"
                   :metalness="0.9"
                   :roughness="0.1"
-                  :envMapIntensity="35"
+                  :envMapIntensity=".2"
                   v-if="skyRef"
                   :envMap="skyRef?.background"
                   :side="THREE.DoubleSide"

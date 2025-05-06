@@ -16,7 +16,7 @@ defineProps<{
       class="project-card"
   >
     <CardContainer class="group">
-      <CardBody class="hover:bg-black/10 bg-transparent transition-colors duration-200">
+      <CardBody class="bg-background/5 hover:bg-black/10 transition-colors duration-200">
           <CardItem
               :translate-z="140"
               :rotate-z="3 * (index % 2 ? -1 : 1)"

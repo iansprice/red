@@ -1,12 +1,13 @@
 <script setup>
-
 </script>
 
 <template>
-  <Menu
-      title="Demos"
-      :links="[{title:'Op-art', to:'/demos/opart'},{title:'Oscilloscope', to:'/demos/oscilloscope'}]"
-  />
+  <div>
+    <Menu
+        title="Demos"
+        :links="[{title:'Op-art', to:'/demos/opart/1'},{title:'Oscilloscope', to:'/demos/oscilloscope'}]"
+    />
+  </div>
 </template>
 
 <style scoped>

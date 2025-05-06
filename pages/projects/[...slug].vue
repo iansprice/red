@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SpotlightButton from "../../components/SpotlightButton.vue";
-import {definePageMeta, queryCollection, useRoute, createError} from "../../.nuxt/imports";
+import {queryCollection, useRoute, createError} from "../../.nuxt/imports";
 import TextGenerateEffect from "../../components/ui/TextGenerateEffect.vue";
 import {proseClasses} from "../../utils/prose";
 
@@ -26,17 +26,27 @@ const descAnimDone = ref(false)
     <div class="flex flex-col items-center">
       <div class="flex flex-col flex-wrap justify-start">
         <Prose class="">
-          <NuxtLink
-              class="shrink text-primary hover:underline not-prose opacity-60 hover:opacity-100 transition-opacity duration-200 my-1"
-              :to="{name:'projects'}">
-            <h2 class="text-3xl w-fit">Work:</h2>
-          </NuxtLink>
-          <TextGenerateEffect
-              tag="h2"
-              class="text-3xl grow not-prose my-1"
-              :words="data.title"
-              :delay="0"
-              @done="titleAnimDone=true"/>
+
+          <h2 class="text-3xl w-fit text-primary">
+            <NuxtLink
+                class="shrink hover:underline not-prose opacity-60 hover:opacity-100 transition-opacity duration-200 my-1"
+                :to="{name:'projects'}">
+              Work</NuxtLink>:
+          </h2>
+
+          <div class="flex justify-end">
+            <TextGenerateEffect
+                tag="h2"
+                class="text-3xl not-prose my-1"
+                :words="data.title"
+                :delay="0"
+                @done="titleAnimDone=true"/>
+            <TextGenerateEffect
+                class="text-3xl grow not-prose my-1 text-secondary-foreground opacity-30"
+                :words="data.role || ''"
+                :delay="500"
+            />
+          </div>
           <div
               class="my-1 mb-3 text-xl text-primary not-prose"
           >
@@ -80,8 +90,7 @@ const descAnimDone = ref(false)
         </Prose>
       </div>
       <Prose>
-
-      <Divider/>
+        <Divider/>
       </Prose>
       <ContentRenderer :value="data" :class="proseClasses" prose/>
       <div class="flex justify-center items-center">
