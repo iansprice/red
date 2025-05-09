@@ -39,7 +39,7 @@ const oscillatorTimeWindow = ref(5)
 </script>
 
 <template>
-  <div>
+  <div class="overflow-hidden">
     <div class="flex flex-auto justify-around">
       <div >
         <OscillateArgsForm class="flex flex-col " v-model="oscillateArgs" >
@@ -50,9 +50,9 @@ const oscillatorTimeWindow = ref(5)
         </OscillateArgsForm>
       </div>
     </div>
-    <div class="flex justify-end">
-      <div class="grow">
-        <Oscilloscope
+    <div class="flex justify-between">
+      <div class="grow flex-1 scale-80 md:scale-100">
+        <LazyOscilloscope
             :value="delayRaw"
             :center-phase="oscillateArgs.centerPhase"
             :min="oscillateArgs.min"
@@ -67,9 +67,9 @@ const oscillatorTimeWindow = ref(5)
               :max="100"
               :step="0.001"
           />
-        </Oscilloscope>
+        </LazyOscilloscope>
       </div>
-      <div class="shrink">
+      <div style="" class="shrink w-8 h-8 transform -rotate-90 scale-[88%] !mt-16 ">
           <URange
               v-model.number="delayRaw"
               :disabled="oscillateArgs.on"
@@ -77,7 +77,7 @@ const oscillatorTimeWindow = ref(5)
               :max="100"
               :min="0"
               :step=".01"
-              class="-rotate-90 -ml-[100px] -mr-[100px] h-64 mt-22 w-96"
+              class="h-32 w-96 -ml-[334px] -mt-[60px]"
               :style="`color:${fillColor};`"
           />
       </div>

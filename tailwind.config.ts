@@ -12,6 +12,15 @@ export default {
     ],
     theme: {
         extend: {
+            keyframes: {
+                'move-left': {
+                    '0%': { transform: 'translateX(0)' },
+                    '100%': { transform: 'translateX(40px)' },
+                }
+            },
+            animation: {
+                'move-left': 'move-left 2s infinite linear',
+            },
             dropShadow: {
                 glow: [
                     "0 0px 20px rgba(255,255, 255, 0.35)",

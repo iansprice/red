@@ -32,10 +32,10 @@ export default defineNuxtConfig({
     modules: [
       '@nuxt/content',
       '@nuxt/ui',
-      '@nuxtjs/tailwindcss',
       '@nuxtjs/color-mode',
       '@vueuse/nuxt',
       '@tresjs/nuxt',
+      '@nuxtjs/tailwindcss',
     ],
     nitro: {
         prerender: {
@@ -48,6 +48,11 @@ export default defineNuxtConfig({
             mediumAPIKey: process.env.MEDIUM_API_KEY,
             mediumUsername: process.env.MEDIUM_USERNAME
         }
+    },
+    tailwindcss: {
+        exposeConfig: true,
+        viewer: true,
+        // and more...
     },
     tres: {
         devtools: true,

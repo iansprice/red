@@ -19,9 +19,11 @@ withDefaults(
 <template>
   <div class="text-center z-10">
     <OnceMorphingText class="scale-50" :text="title" v-if="title"/>
-    <div class="text-2xl my-3 flex flex-col" v-if="links?.length">
-      <NuxtLink v-for="link in links" :key="link.title" :to="link.to" class="hover:text-primary">{{ link.title }}
+    <div class="text-2xl my-3 flex flex-col" >
+      <NuxtLink v-for="link in links" :key="link.title" :to="link.to" class="hover:text-primary">
+        {{ link.title }}
       </NuxtLink>
+      <slot name="default"/>
     </div>
   </div>
 </template>

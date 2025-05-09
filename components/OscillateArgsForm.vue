@@ -28,7 +28,7 @@ function logScale(value: number, min: number = 0, max: number = 100) {
 
 <template>
   <div class="border border-gray-700 px-3 py-2 gap-3">
-    <div v-if="!alwaysOn">
+    <div v-if="!alwaysOn" @click.stop class="cursor-pointer">
       <UToggle
           id="on"
           size="md"
@@ -47,7 +47,7 @@ function logScale(value: number, min: number = 0, max: number = 100) {
 
       <div class="flex">
         <div class="flex flex-col">
-          <LogDial
+          <LazyLogDial
               reverse
               v-model:model-value="modelValue.cycleLengthSeconds"
               :max-value="modelValue.max"
@@ -60,7 +60,7 @@ function logScale(value: number, min: number = 0, max: number = 100) {
           <div>{{ (1 / modelValue.cycleLengthSeconds).toFixed(3) }}hz</div>
         </div>
         <div class="flex flex-col">
-          <LogDial
+          <LazyLogDial
               :disabled="!modelValue.on"
               v-model.number="modelValue.amplitudeRatio"
               :min-value="0.001"
@@ -73,7 +73,7 @@ function logScale(value: number, min: number = 0, max: number = 100) {
         </div>
 
         <div class="flex flex-col">
-          <LogDial
+          <LazyLogDial
               :disabled="!modelValue.on"
               v-model.number="modelValue.skew"
               :min-value="-1"

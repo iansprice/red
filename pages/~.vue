@@ -74,7 +74,7 @@ const skyRef = shallowRef(undefined)
         style="z-index: 50; pointer-events: auto; isolation: isolate; position: relative"
         :links="[{title: 'Work', to:{name:'projects'}}, {title:'Demos', to:'/demos'}]"/>
     <ControlsPopover>
-      <LogDial
+      <LazyLogDial
           v-model.number="azimuth"
           label="Azimuth"
           :min-value="0.01"
@@ -82,7 +82,7 @@ const skyRef = shallowRef(undefined)
           :size="120"
           class="z-10 pointer-events-auto"
       />
-      <LogDial
+      <LazyLogDial
           v-model.number="distance"
           label="Distance (box)"
           :min-value="0.01"
@@ -90,7 +90,7 @@ const skyRef = shallowRef(undefined)
           :size="120"
           class="z-10 pointer-events-auto"
       />
-      <LogDial
+      <LazyLogDial
           v-model.number="elevation"
           label="Elevation"
           :min-value="-50"
@@ -98,7 +98,7 @@ const skyRef = shallowRef(undefined)
           :size="120"
           class="z-10 pointer-events-auto"
       />
-      <LogDial
+      <LazyLogDial
           v-model.number="mieCoefficient"
           label="MIE coefficient"
           :min-value="0.0001"
@@ -106,7 +106,7 @@ const skyRef = shallowRef(undefined)
           :size="120"
           class=""
       />
-      <LogDial
+      <LazyLogDial
           v-model.number="mieDirectionalG"
           label="MIE Directional G"
           :min-value="0.01"
@@ -114,7 +114,7 @@ const skyRef = shallowRef(undefined)
           :size="120"
           class=""
       />
-      <LogDial
+      <LazyLogDial
           v-model.number="rayleigh"
           label="Rayleigh"
           :min-value="0.01"
@@ -122,7 +122,7 @@ const skyRef = shallowRef(undefined)
           :size="120"
           class="z-10 pointer-events-auto"
       />
-      <LogDial
+      <LazyLogDial
           v-model.number="turbidity"
           label="Turbidity"
           :min-value="0.01"
@@ -130,7 +130,7 @@ const skyRef = shallowRef(undefined)
           :size="120"
           class="z-10 pointer-events-auto"
       />
-      <LogDial
+      <LazyLogDial
           v-model.number="orbitRotateSpeed"
           label="Rotate speed"
           :min-value="-30"
@@ -140,13 +140,7 @@ const skyRef = shallowRef(undefined)
       />
     </ControlsPopover>
     <div class="absolute flex justify-around items-center h-screen w-screen -top-8 pointer-events-none">
-      <LazyUiSpinningText
-          text="BRINGING SOUL BACK TO TECH *"
-          class="z-50 text-white text-md font-extrabold mix-blend-exclusion font-mono"
-          :radius="10"
-          :duration="20"
-          reverse
-      />
+
     </div>
     <transition name="fade-slow">
       <div

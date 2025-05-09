@@ -1,6 +1,9 @@
 <template>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-    <Menu title="Work" />
+    <Menu title="Work">
+      <a href='/docs/Resume - Ian Price.pdf' target="_blank" class="hover:text-primary transition-colors duration-250">View resumé</a>
+    </Menu>
+
     <div class="my-6 gap-6 flex flex-wrap self-center justify-center items-center align-middle">
       <NuxtLink
           v-for="(project, index) in projects"
@@ -24,6 +27,7 @@
 
 <script setup lang="ts">
 import Project from "../../components/content/Project.vue";
+import ColorfulText from "../../components/ui/ColorfulText.vue";
 
 const { data: projects }: { data: Project[]} = await useAsyncData('projects', () =>
     queryCollection('projects').all()

@@ -82,6 +82,9 @@ const router = useRouter()
 
 <template>
   <div>
+    <div class="flex justify-around">
+      <LazyMenu :links="[{to:'/demos/opart/2', title:'Next'}, {to:'/demos', title: '<<<'}]"/>
+    </div>
     <div>
       <ControlsPopover>
         <div class="flex flex-col px-4">

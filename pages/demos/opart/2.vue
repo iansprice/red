@@ -40,20 +40,30 @@ assignValueOnLoop2(w2, o2);
 const points1 = computed(() => {
   const a = 0
   const b = o1.value
-  return `${a},${b} ${20 - a},${b -20} ${10 - a},${b - 20} ${a},${b - 10}`;
+  return `${a},${b} ${20 - a},${b - 20} ${10 - a},${b - 20} ${a},${b - 10}`;
 });
 </script>
 
 <template>
   <div class="flex flex-col items-center">
-    {{w1}} > {{Math.round(o1, -2)}}
-    <LogDial
-        :min-value="0.001"
-        :max-value="50"
-        :size="120"
-        :sub-value="o1"
-        v-model="w1"
-    />
+    <div class="flex justify-around">
+      <LazyMenu :links="[{to:'/demos/opart/1', title:'Last'}, {to:'/demos', title: '<<<'}]"/>
+    </div>
+    <ControlsPopover>
+      <div class="flex flex-col px-4">
+        <div>
+          <label for="granularity">Granularity</label>
+        </div>
+        <LazyLogDial
+            id="granularity"
+            :min-value="0.001"
+            :max-value="50"
+            :size="120"
+            :sub-value="o1"
+            v-model="w1"
+        />
+      </div>
+    </ControlsPopover>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
       <!-- Frame -->
       <rect x="0" y="0" width="500" height="500" fill="black"/>
@@ -74,7 +84,7 @@ const points1 = computed(() => {
       <!-- Inner Stripes -->
       <pattern id="innerStripes" patternUnits="userSpaceOnUse" width="20" :height="o2">
         <rect x="0" y="0" width="20" height="20" fill="white" fill-opacity="0.01"/>
-        <polygon :points="`0,0 ${w1},20 15,${o1} 0,5`" />
+        <polygon :points="`0,0 ${w1},20 15,${o1} 0,5`"/>
       </pattern>
       <polygon :points="`100,${o1**1.3} 400,100 ${w2*10},${o2*10} 200,400 ${w1},300`" fill="url(#innerStripes)"/>
     </svg>

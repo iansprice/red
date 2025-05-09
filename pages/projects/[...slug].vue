@@ -34,18 +34,20 @@ const descAnimDone = ref(false)
               Work</NuxtLink>:
           </h2>
 
-          <div class="flex justify-end">
+          <div class="flex justify-between">
             <TextGenerateEffect
                 tag="h2"
                 class="text-3xl not-prose my-1"
                 :words="data.title"
                 :delay="0"
                 @done="titleAnimDone=true"/>
-            <TextGenerateEffect
-                class="text-3xl grow not-prose my-1 text-secondary-foreground opacity-30"
-                :words="data.role || ''"
-                :delay="500"
-            />
+            <div class="opacity-30">
+              <TextGenerateEffect
+                  class="text-3xl grow not-prose my-1 text-gray-500"
+                  :words="data.role || ''"
+                  :delay="500"
+              />
+            </div>
           </div>
           <div
               class="my-1 mb-3 text-xl text-primary not-prose"

@@ -237,14 +237,14 @@ const linearToLog = (fraction) => {
 const logToLinear = (value) => {
   // Handle zero-crossing ranges with simple linear interpolation
   if (props.minValue < 0 && props.maxValue > 0) {
-    const fraction = (value - props.minValue) / (props.maxValue - props.minValue)
+    const fraction = ((value - props.minValue) / (props.maxValue - props.minValue))
     return props.reverse ? 1 - fraction : fraction
   }
 
   // For all-positive or all-negative ranges, use log scaling
   const minv = Math.log(Math.abs(props.minValue))
   const maxv = Math.log(Math.abs(props.maxValue))
-  const fraction = (Math.log(Math.abs(value)) - minv) / (maxv - minv)
+  const fraction = ((Math.log(Math.abs(value)) - minv) / (maxv - minv))
   return props.reverse ? 1 - fraction : fraction
 }
 
