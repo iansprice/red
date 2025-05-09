@@ -49,14 +49,14 @@ onMounted(() => setTimeout(() => donezo.value = true, duration))
 const statements = [
   'HELLO', "I'm Ian", "THanks for visiting", "...", "YUou know", "I'm accepting clients/Work",
   "Great, huh?", "Lucky you", "....", "This could by YOUR site",
-  ".....", "Websites look pretty samesame right now",
-  "Thought this shouldn't", "......", "Anyways", 'I only build things to be loved',
-  'Which is what you are', ' ~ ', ':~)'
+  ".....", "Websites look pretty-samesame right-now",
+  "Thought this shouldn't", "......", "Anyways", 'I only_build things-I love',
+  'Build-in-your-image they say', ' ~ ', ':~)', ''
 ]
 const statement = ref()
 
+let index = statements.length
 useIntervalFn(() => {
-  let index = statements.indexOf(statement.value) || 0
   if (index + 1 >= statements.length) {
     index = 0
   } else {
