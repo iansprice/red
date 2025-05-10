@@ -4,7 +4,7 @@
       :class="props.class"
   >
     <div
-        class="absolute inset-0 flex items-center justify-center overflow-hidden"
+        class="max-w-screen absolute md:inset-0 flex items-center justify-around overflow-hidden whitespace-normal"
         :style="{
         maskImage: dataUrlMask,
         WebkitMaskImage: dataUrlMask,

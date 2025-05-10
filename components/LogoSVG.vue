@@ -100,7 +100,7 @@ onUnmounted(() => {
           :to="{name:'~'}"
           style="z-index: 50; pointer-events: auto; isolation: isolate; position: relative;"
       >
-        <svg class="w-full ml-12" viewBox="0 0 600 100">
+        <svg class="w-full ml-12 overflow-hidden" viewBox="0 0 600 100">
           <defs>
             <DisplacementCircles id="dis1" :it="it" :octaves="orf" :in1="in1" :in2="in2" :in3="in3"/>
             <animate

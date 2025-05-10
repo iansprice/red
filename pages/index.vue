@@ -51,7 +51,7 @@ const statements = [
   "Great, huh?", "Lucky you", "....", "This could by YOUR site",
   ".....", "Websites look pretty-samesame right-now",
   "Thought this shouldn't", "......", "Anyways", 'I only_build things-I love',
-  'Build-in-your-image they say', ' ~ ', ':~)', ''
+  'Build-in your-image they-say', ' ~ ', ':~)', ''
 ]
 const statement = ref()
 

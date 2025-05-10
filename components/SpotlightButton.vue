@@ -19,8 +19,6 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import RainbowButton from "./RainbowButton.vue";
-import AuroraBackground from "./AuroraBackground.vue";
 
 defineProps<{to?: any, class?: string}>()
 

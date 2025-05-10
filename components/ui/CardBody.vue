@@ -1,6 +1,6 @@
 <template>
   <div
-      :class="cn('h-96 w-96 rounded-none', $props.class)"
+      :class="cn('h-96 sm:w-96 rounded-none', $props.class)"
       style="transform-style: preserve-3d"
   >
     <slot />
