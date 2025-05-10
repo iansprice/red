@@ -64,7 +64,7 @@ const points1 = computed(() => {
         />
       </div>
     </ControlsPopover>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" class="w-screen">
       <!-- Frame -->
       <rect x="0" y="0" width="500" height="500" fill="black"/>
 

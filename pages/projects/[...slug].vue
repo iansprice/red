@@ -34,7 +34,7 @@ const descAnimDone = ref(false)
               Work</NuxtLink>:
           </h2>
 
-          <div class="flex justify-between">
+          <div class="flex flex-col lg:flex-row justify-between">
             <TextGenerateEffect
                 tag="h2"
                 class="text-3xl not-prose my-1"
