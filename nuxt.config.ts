@@ -36,11 +36,22 @@ export default defineNuxtConfig({
       '@vueuse/nuxt',
       '@tresjs/nuxt',
       '@nuxtjs/tailwindcss',
+        'nuxt-nodemailer',
     ],
     nitro: {
         prerender: {
             autoSubfolderIndex: false
         }
+    },
+    nodemailer: {
+        from: '"Red Mountain" <ian@redmountainsoftware.com>',
+        host: process.env.EMAIL_HOST,
+        port: process.env.EMAIL_PORT,
+        secure: false,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD,
+        },
     },
     plugins: ['@/plugins/tres.client.ts'],
     runtimeConfig: {

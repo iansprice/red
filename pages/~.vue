@@ -72,7 +72,7 @@ const skyRef = shallowRef(undefined)
     <Menu
         class="z-1 pointer-events-auto"
         style="z-index: 50; pointer-events: auto; isolation: isolate; position: relative"
-        :links="[{title: 'Work', to:{name:'projects'}}, {title:'Demos', to:'/demos'}]"/>
+        :links="[{title: 'Work', to:{name:'projects'}}, {title:'Demos', to:'/demos'}, {title:'Contact', to:'/contact'}]"/>
     <ControlsPopover>
       <LazyLogDial
           v-model.number="azimuth"
