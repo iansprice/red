@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
+    "build-for-cloudflare": "npx nuxi build --preset=cloudflare_pages && wrangler pages deploy dist/",
     "deploy": "npx nuxi build --preset=github_pages && wrangler pages deploy dist/",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
@@ -31,7 +32,8 @@
     "vue": "^3.3.12",
     "vue-router": "^4.5.0",
     "vue-tsc": "^2.1.10",
-    "vue3-zoomer": "^1.0.5"
+    "vue3-zoomer": "^1.0.5",
+    "wrangler": "^4.15.2"
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.16",
