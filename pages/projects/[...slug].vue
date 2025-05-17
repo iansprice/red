@@ -43,7 +43,7 @@ const descAnimDone = ref(false)
                 @done="titleAnimDone=true"/>
             <div class="opacity-30">
               <TextGenerateEffect
-                  class="text-3xl grow not-prose my-1 text-gray-500"
+                  class="text-3xl grow not-prose my-1 text-neutral-500"
                   :words="data.role || ''"
                   :delay="500"
               />
