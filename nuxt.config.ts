@@ -37,7 +37,6 @@ export default defineNuxtConfig({
       '@tresjs/nuxt',
       '@nuxtjs/tailwindcss',
       '@nuxthub/core',
-      'nuxt-nodemailer',
     ],
     nitro: {
         experimental: {
