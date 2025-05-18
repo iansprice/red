@@ -55,7 +55,7 @@
             :class="['w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm font-medium text-white bg-neutral-600 hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-500', {'bg-neutral-900': submitting}]"
         >
           <div role="status" v-if="submitting">
-            <Spinner/>
+            Submitting...
           </div>
           <div v-else>
             Send Message
@@ -69,6 +69,7 @@
 <script setup lang="ts">
 import SpotlightButton from "../components/SpotlightButton.vue";
 import {contactFormSchema, type ContactFormSchema} from "../utils/schema/contact";
+import {FormSubmitEvent} from "@nuxt/ui/dist/runtime/types";
 
 const submitting = ref(false)
 const sent = ref(false);
@@ -79,7 +80,7 @@ const form = reactive<Partial<ContactFormSchema>>({
 })
 const toast = useToast()
 const handleSubmit = async (event: FormSubmitEvent<ContactFormSchema>) => {
-  console.table(event)
+  console.info(event)
   try {
     submitting.value = true
     const response = await $fetch('/api/contact', {
