@@ -1,6 +1,5 @@
 {
-  "name": "your-app-name",
-  "main": ".output/server/index.mjs",
+  "name": "redmt",
   "site": {
     "bucket": ".output/public"
   },
