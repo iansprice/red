@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
-    "build-for-cloudflare": "npx nuxi build --preset=cloudflare_module && npx wrangler --cwd .output/ deploy  ",
-    "deploy": "npx nuxi build --preset=github_pages && wrangler pages deploy dist/",
-    "dev": "nuxt dev",
+    "build": "nuxi build --preset=cloudflare_pages",
+    "deploy": "npm run build && npx wrangler pages deploy dist/",
+    "dev": "nuxt dev --host",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "npm run build && wrangler pages dev dist/",
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {

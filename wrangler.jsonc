@@ -1,9 +1,0 @@
-{
-  "name": "redmt",
-  "main": ".output/server/index.mjs",
-  "site": {
-    "bucket": ".output/public"
-  },
-  "compatibility_date": "2023-12-01",
-  "compatibility_flags": ["nodejs_compat"]
-}

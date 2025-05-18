@@ -38,8 +38,10 @@ export default defineNuxtConfig({
       '@nuxtjs/tailwindcss',
     ],
     nitro: {
-        prerender: {
-            autoSubfolderIndex: false
+        preset: "cloudflare_module",
+        cloudflare: {
+            deployConfig: true,
+            nodeCompat: true
         }
     },
     plugins: ['@/plugins/tres.client.ts'],
@@ -49,6 +51,7 @@ export default defineNuxtConfig({
             mediumUsername: process.env.MEDIUM_USERNAME
         }
     },
+    ssr: false,
     tailwindcss: {
         exposeConfig: true,
         viewer: true,
