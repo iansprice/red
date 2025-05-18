@@ -1,23 +1,23 @@
 // server/api/submit-form.post.js
 import {contactFormSchema} from "../../utils/schema/contact";
 
-const connectionOptions = {
-    from: '"Red Mountain" <ian@redmountainsoftware.com>',
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: false,
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-    },
-}
-
 export default defineEventHandler(async (event) => {
     try {
         // Get the form data
         const formData = await readValidatedBody(event, (body) =>
             contactFormSchema.parse(body)
         )
+
+        const connectionOptions = {
+            from: '"Red Mountain" <ian@redmountainsoftware.com>',
+            host: process.env.EMAIL_HOST,
+            port: process.env.EMAIL_PORT,
+            secure: false,
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASSWORD,
+            },
+        }
 
         // Set up email data
         const mailOptions = {
