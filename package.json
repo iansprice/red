@@ -16,6 +16,7 @@
     "@nuxt/devtools": "^1.0.6",
     "@nuxt/icon": "^1.12.0",
     "@nuxt/ui": "^2.21.0",
+    "@nuxthub/core": "^0.8.27",
     "@nuxtjs/tailwindcss": "^6.8.1",
     "@tailwindcss/typography": "^0.5.15",
     "@tresjs/nuxt": "^3.0.7",
