@@ -1,12 +1,23 @@
 // server/api/submit-form.post.js
 import {contactFormSchema} from "../../utils/schema/contact";
-import createTra
+
 export default defineEventHandler(async (event) => {
     try {
         // Get the form data
         const formData = await readValidatedBody(event, (body) =>
             contactFormSchema.parse(body)
         )
+
+        const connectionOptions = {
+            from: '"Red Mountain" <ian@redmountainsoftware.com>',
+            host: process.env.EMAIL_HOST,
+            port: parseInt(process.env.EMAIL_PORT),
+            secure: false,
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASSWORD,
+            },
+        }
 
         // Set up email data
         const mailOptions = {
@@ -40,9 +51,25 @@ export default defineEventHandler(async (event) => {
       `
         }
         // See https://github.com/zou-yu/worker-mailer #3
-
-        const { sendMail } = useNodeMailer()
-        await sendMail(mailOptions)
+        if (import.meta.dev) {
+            console.log('dev', {
+                connectionOptions,
+                mailOptions
+            })
+            // Development: Use nodemailer (or any Node.js compatible email library)
+            const nodemailer = await import('nodemailer')
+            const transporter = nodemailer.default.createTransport(connectionOptions)
+            await transporter.sendMail(mailOptions)
+        } else {
+            console.log('prod', {
+                connectionOptions,
+                mailOptions
+            })
+            // Production: Use worker-mailer in Cloudflare Workers environment
+            const { WorkerMailer } = await import('worker-mailer')
+            const mailer = await WorkerMailer.connect(connectionOptions)
+            await mailer.send(mailer)
+        }
 
         // Send the email
         return {
@@ -50,7 +77,6 @@ export default defineEventHandler(async (event) => {
         }
 
     } catch (error) {
-        console.error("could not send mail", error)
         throw createError({
             statusCode: 400,
             statusMessage: error,
