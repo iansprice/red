@@ -47,12 +47,6 @@ export default defineNuxtConfig({
         }
     },
     plugins: ['@/plugins/tres.client.ts'],
-    runtimeConfig: {
-        public: {
-            mediumAPIKey: process.env.MEDIUM_API_KEY,
-            mediumUsername: process.env.MEDIUM_USERNAME
-        }
-    },
     tailwindcss: {
         exposeConfig: true,
         viewer: true,
