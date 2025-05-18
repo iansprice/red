@@ -16,6 +16,7 @@
     </ClientOnly>
     <div class="pb-12">
       <NuxtPage/>
+      <UNotifications />
     </div>
     <div v-if="false">
       <NavigationScroller/>
