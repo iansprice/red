@@ -56,6 +56,7 @@ export default defineEventHandler(async (event) => {
         })
 
         if (!response.ok) {
+            console.log(response)
             console.error("Could not send email", response)
             throw new Error("Message could not be sent at this time")
         }

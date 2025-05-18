@@ -80,7 +80,6 @@ const form = reactive<Partial<ContactFormSchema>>({
 })
 const toast = useToast()
 const handleSubmit = async (event: FormSubmitEvent<ContactFormSchema>) => {
-  console.info(event)
   try {
     submitting.value = true
     const response = await $fetch('/api/contact', {
