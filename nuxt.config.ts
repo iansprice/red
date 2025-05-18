@@ -39,6 +39,9 @@ export default defineNuxtConfig({
       '@nuxthub/core'
     ],
     nitro: {
+        experimental: {
+            openAPI: true
+        },
         prerender: {
             autoSubfolderIndex: false
         }
