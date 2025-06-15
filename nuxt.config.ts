@@ -20,6 +20,11 @@ export default defineNuxtConfig({
     build: {
         transpile: ['vue3-zoomer']
     },
+    content: {
+        preview: {
+            api: 'https://api.nuxt.studio'
+        }
+    },
     css: [
         '@/assets/css/animations.css',
         '@/assets/css/fonts.css',
